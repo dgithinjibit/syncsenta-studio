@@ -1,0 +1,333 @@
+[
+  {
+    "dialogue_id": "cbc_mathematics_pp1_2167b9f7",
+    "grade_level": "PP1",
+    "subject": "Mathematics",
+    "curriculum_strand": "Patterns",
+    "sub_strand": "Shape Patterns",
+    "learning_objective": "Extend given patterns",
+    "cultural_context": "kenyan_scenarios",
+    "language_mix": "english_swahili",
+    "dialogue": [
+      {
+        "role": "student",
+        "content": "Can you help me with extend given patterns?",
+        "timestamp": "2026-04-28T20:23:46.948475",
+        "pedagogical_technique": null,
+        "cultural_elements": null
+      },
+      {
+        "role": "tutor",
+        "content": "Pole, let me help you. Let's think about this step by step. What do you already know about this topic?",
+        "timestamp": "2026-04-28T20:23:46.948475",
+        "pedagogical_technique": "socratic_method",
+        "cultural_elements": [
+          "swahili_pole"
+        ]
+      },
+      {
+        "role": "student",
+        "content": "Oh, so it's like when we...",
+        "timestamp": "2026-04-28T20:23:46.948475",
+        "pedagogical_technique": null,
+        "cultural_elements": null
+      },
+      {
+        "role": "tutor",
+        "content": "Pole, let me help you. First, let's start with something simple.",
+        "timestamp": "2026-04-28T20:23:46.948475",
+        "pedagogical_technique": "scaffolded_support",
+        "cultural_elements": [
+          "swahili_pole"
+        ]
+      },
+      {
+        "role": "student",
+        "content": "I think I can do this one myself.",
+        "timestamp": "2026-04-28T20:23:46.948475",
+        "pedagogical_technique": null,
+        "cultural_elements": null
+      },
+      {
+        "role": "tutor",
+        "content": "Pole, let me help you. Good effort! Now let's try the next step.",
+        "timestamp": "2026-04-28T20:23:46.948475",
+        "pedagogical_technique": "scaffolded_support",
+        "cultural_elements": [
+          "swahili_pole"
+        ]
+      },
+      {
+        "role": "student",
+        "content": "I've got it! The answer is...",
+        "timestamp": "2026-04-28T20:23:46.948475",
+        "pedagogical_technique": null,
+        "cultural_elements": null
+      },
+      {
+        "role": "tutor",
+        "content": "Asante for working so hard. You've mastered this!",
+        "timestamp": "2026-04-28T20:23:46.948475",
+        "pedagogical_technique": "reinforcement",
+        "cultural_elements": [
+          "swahili_asante"
+        ]
+      }
+    ],
+    "learning_outcome": "achieved",
+    "difficulty_level": 1,
+    "metadata": {
+      "generated_by": "kiro_moe",
+      "generated_at": "2026-04-28T20:23:46.948851",
+      "reviewed": false,
+      "cultural_authenticity_score": 0.0,
+      "pedagogical_effectiveness_score": 0.0
+    }
+  },
+  {
+    "dialogue_id": "cbc_english_grade1_fa4e4ae6",
+    "grade_level": "Grade1",
+    "subject": "English",
+    "curriculum_strand": "Reading",
+    "sub_strand": "Reading Comprehension",
+    "learning_objective": "Decode simple words using phonics",
+    "cultural_context": "kenyan_foods",
+    "language_mix": "english_swahili",
+    "dialogue": [
+      {
+        "role": "student",
+        "content": "Mwalimu, what does reading comprehension mean?",
+        "timestamp": "2026-04-28T20:23:46.949919",
+        "pedagogical_technique": null,
+        "cultural_elements": null
+      },
+      {
+        "role": "tutor",
+        "content": "Pole, let me help you. Let's use nyama choma to understand this. What do you already know about this topic?",
+        "timestamp": "2026-04-28T20:23:46.949919",
+        "pedagogical_technique": "socratic_method",
+        "cultural_elements": [
+          "swahili_pole"
+        ]
+      },
+      {
+        "role": "student",
+        "content": "I think I see what you mean...",
+        "timestamp": "2026-04-28T20:23:46.949919",
+        "pedagogical_technique": null,
+        "cultural_elements": null
+      },
+      {
+        "role": "tutor",
+        "content": "Karibu! We'll work through this together.",
+        "timestamp": "2026-04-28T20:23:46.949919",
+        "pedagogical_technique": "scaffolded_support",
+        "cultural_elements": [
+          "swahili_karibu"
+        ]
+      },
+      {
+        "role": "student",
+        "content": "I think I can do this one myself.",
+        "timestamp": "2026-04-28T20:23:46.949919",
+        "pedagogical_technique": null,
+        "cultural_elements": null
+      },
+      {
+        "role": "tutor",
+        "content": "Pole, let me help you. First, let's start with something simple.",
+        "timestamp": "2026-04-28T20:23:46.949919",
+        "pedagogical_technique": "scaffolded_support",
+        "cultural_elements": [
+          "swahili_pole"
+        ]
+      },
+      {
+        "role": "student",
+        "content": "This is actually easier than I thought!",
+        "timestamp": "2026-04-28T20:23:46.949919",
+        "pedagogical_technique": null,
+        "cultural_elements": null
+      },
+      {
+        "role": "tutor",
+        "content": "Excellent work! You understand this concept well.",
+        "timestamp": "2026-04-28T20:23:46.949919",
+        "pedagogical_technique": "reinforcement",
+        "cultural_elements": []
+      }
+    ],
+    "learning_outcome": "achieved",
+    "difficulty_level": 2,
+    "metadata": {
+      "generated_by": "kiro_moe",
+      "generated_at": "2026-04-28T20:23:46.950414",
+      "reviewed": false,
+      "cultural_authenticity_score": 0.0,
+      "pedagogical_effectiveness_score": 0.0
+    }
+  },
+  {
+    "dialogue_id": "cbc_mathematics_grade3_d4c6ec37",
+    "grade_level": "Grade3",
+    "subject": "Mathematics",
+    "curriculum_strand": "Numbers",
+    "sub_strand": "Number Operations",
+    "learning_objective": "Multiply and divide within 100",
+    "cultural_context": "kenyan_foods",
+    "language_mix": "english_swahili",
+    "dialogue": [
+      {
+        "role": "student",
+        "content": "Mwalimu, what does number operations mean?",
+        "timestamp": "2026-04-28T20:23:46.951563",
+        "pedagogical_technique": null,
+        "cultural_elements": null
+      },
+      {
+        "role": "tutor",
+        "content": "Karibu! Let's use ugali to understand this. What do you already know about this topic?",
+        "timestamp": "2026-04-28T20:23:46.951563",
+        "pedagogical_technique": "socratic_method",
+        "cultural_elements": [
+          "swahili_karibu",
+          "kenyan_ugali"
+        ]
+      },
+      {
+        "role": "student",
+        "content": "I'm starting to understand.",
+        "timestamp": "2026-04-28T20:23:46.951563",
+        "pedagogical_technique": null,
+        "cultural_elements": null
+      },
+      {
+        "role": "tutor",
+        "content": "Good question! We'll work through this together.",
+        "timestamp": "2026-04-28T20:23:46.951563",
+        "pedagogical_technique": "scaffolded_support",
+        "cultural_elements": []
+      },
+      {
+        "role": "student",
+        "content": "Yes! I can see the pattern now.",
+        "timestamp": "2026-04-28T20:23:46.951563",
+        "pedagogical_technique": null,
+        "cultural_elements": null
+      },
+      {
+        "role": "tutor",
+        "content": "Habari! Let me show you one step at a time.",
+        "timestamp": "2026-04-28T20:23:46.951563",
+        "pedagogical_technique": "scaffolded_support",
+        "cultural_elements": [
+          "swahili_habari"
+        ]
+      },
+      {
+        "role": "student",
+        "content": "Thank you for helping me understand!",
+        "timestamp": "2026-04-28T20:23:46.951563",
+        "pedagogical_technique": null,
+        "cultural_elements": null
+      },
+      {
+        "role": "tutor",
+        "content": "Perfect! Now you can help other students too.",
+        "timestamp": "2026-04-28T20:23:46.951563",
+        "pedagogical_technique": "reinforcement",
+        "cultural_elements": []
+      }
+    ],
+    "learning_outcome": "achieved",
+    "difficulty_level": 3,
+    "metadata": {
+      "generated_by": "kiro_moe",
+      "generated_at": "2026-04-28T20:23:46.951819",
+      "reviewed": false,
+      "cultural_authenticity_score": 0.0,
+      "pedagogical_effectiveness_score": 0.0
+    }
+  },
+  {
+    "dialogue_id": "cbc_mathematics_grade7_db332f6f",
+    "grade_level": "Grade7",
+    "subject": "Mathematics",
+    "curriculum_strand": "Numbers",
+    "sub_strand": "Rational Numbers",
+    "learning_objective": "Understand rational number operations",
+    "cultural_context": "kenyan_foods",
+    "language_mix": "english_swahili",
+    "dialogue": [
+      {
+        "role": "student",
+        "content": "Mwalimu, how many mandazi are there?",
+        "timestamp": "2026-04-28T20:23:46.953194",
+        "pedagogical_technique": null,
+        "cultural_elements": null
+      },
+      {
+        "role": "tutor",
+        "content": "Good question! Let's use mandazi to understand this. How is this similar to something you know?",
+        "timestamp": "2026-04-28T20:23:46.953194",
+        "pedagogical_technique": "socratic_method",
+        "cultural_elements": [
+          "kenyan_mandazi"
+        ]
+      },
+      {
+        "role": "student",
+        "content": "I think I see what you mean...",
+        "timestamp": "2026-04-28T20:23:46.953194",
+        "pedagogical_technique": null,
+        "cultural_elements": null
+      },
+      {
+        "role": "tutor",
+        "content": "Good question! Let me show you one step at a time.",
+        "timestamp": "2026-04-28T20:23:46.953194",
+        "pedagogical_technique": "scaffolded_support",
+        "cultural_elements": []
+      },
+      {
+        "role": "student",
+        "content": "I think I can do this one myself.",
+        "timestamp": "2026-04-28T20:23:46.953194",
+        "pedagogical_technique": null,
+        "cultural_elements": null
+      },
+      {
+        "role": "tutor",
+        "content": "Habari! Good effort! Now let's try the next step.",
+        "timestamp": "2026-04-28T20:23:46.953194",
+        "pedagogical_technique": "scaffolded_support",
+        "cultural_elements": [
+          "swahili_habari"
+        ]
+      },
+      {
+        "role": "student",
+        "content": "This is actually easier than I thought!",
+        "timestamp": "2026-04-28T20:23:46.953194",
+        "pedagogical_technique": null,
+        "cultural_elements": null
+      },
+      {
+        "role": "tutor",
+        "content": "Perfect! Now you can help other students too.",
+        "timestamp": "2026-04-28T20:23:46.953194",
+        "pedagogical_technique": "reinforcement",
+        "cultural_elements": []
+      }
+    ],
+    "learning_outcome": "achieved",
+    "difficulty_level": 6,
+    "metadata": {
+      "generated_by": "kiro_moe",
+      "generated_at": "2026-04-28T20:23:46.953541",
+      "reviewed": false,
+      "cultural_authenticity_score": 0.0,
+      "pedagogical_effectiveness_score": 0.0
+    }
+  }
+]

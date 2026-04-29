@@ -1,0 +1,15 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        UPDATE approval_requests\n        SET blockchain_tx_hash = $1\n        WHERE requester_id = $2\n        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Varchar",
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "215a8b2665d77e99805a68bddb04545fa10a0334753612ffedaf7dd568263d38"
+}

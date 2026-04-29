@@ -1,0 +1,36 @@
+use axum::{middleware, Router};
+use sqlx::PgPool;
+
+use crate::config::AppConfig;
+use crate::middleware::auth::require_auth;
+
+pub fn all_routes(db: PgPool, cfg: AppConfig) -> Router {
+    // Public routes (no auth required)
+    let public = Router::new()
+        .nest("/auth", crate::handlers::auth::router(db.clone(), cfg.clone()));
+
+    // STUDENT-FOCUSED BUILD: Only student-related protected routes
+    let protected = Router::new()
+        .nest("/assessments", crate::handlers::assessments::router(db.clone(), cfg.clone()))
+        .nest("/mwalimu", crate::handlers::mwalimu::router(db.clone(), cfg.clone()))
+        // COMMENTED OUT: Non-student routes for later implementation
+        // .nest("/approvals", crate::handlers::approvals::router(db.clone(), cfg.clone()))
+        // .nest("/blockchain", crate::handlers::blockchain::router(db.clone(), cfg.clone()))
+        // .nest("/tokens", crate::handlers::tokens::router(db.clone(), cfg.clone()))
+        // .nest("/ipfs", crate::handlers::ipfs::router(db.clone(), cfg.clone()))
+        // .nest("/schemes", crate::handlers::schemes::router(db.clone(), cfg.clone()))
+        // .nest("/classrooms", crate::handlers::classrooms::router(db.clone(), cfg.clone()))
+        // .nest("/payments", crate::handlers::payments::router(db.clone(), cfg.clone()))
+        // .nest("/analytics", crate::handlers::analytics::router(db.clone(), cfg.clone()))
+        // .nest("/content", crate::handlers::content::router(db.clone(), cfg.clone()))
+        // .nest("/sync", crate::handlers::sync::router(db.clone(), cfg.clone()))
+        // .nest("/messages", crate::handlers::messages::router(db.clone(), cfg.clone()))
+        .layer(middleware::from_fn_with_state(
+            cfg.jwt_secret.clone(),
+            require_auth,
+        ));
+
+    Router::new()
+        .merge(public)
+        .merge(protected)
+}

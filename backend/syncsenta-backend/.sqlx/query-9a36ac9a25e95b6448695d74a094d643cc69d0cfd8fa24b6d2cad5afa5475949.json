@@ -1,0 +1,133 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT id, did, email, phone, role as \"role: String\", \n               approval_status as \"approval_status: String\",\n               approved_by, school_id, county_id, \n               language_preference as \"language_preference: String\",\n               wallet_address, mfa_enabled, created_at\n        FROM users WHERE did = $1\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "did",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 2,
+        "name": "email",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 3,
+        "name": "phone",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 4,
+        "name": "role: String",
+        "type_info": {
+          "Custom": {
+            "name": "user_role",
+            "kind": {
+              "Enum": [
+                "student",
+                "parent",
+                "teacher",
+                "school_admin",
+                "school_head",
+                "county_officer",
+                "national_admin"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "ordinal": 5,
+        "name": "approval_status: String",
+        "type_info": {
+          "Custom": {
+            "name": "approval_status",
+            "kind": {
+              "Enum": [
+                "pending",
+                "approved",
+                "rejected"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "ordinal": 6,
+        "name": "approved_by",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 7,
+        "name": "school_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 8,
+        "name": "county_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 9,
+        "name": "language_preference: String",
+        "type_info": {
+          "Custom": {
+            "name": "supported_language",
+            "kind": {
+              "Enum": [
+                "en",
+                "sw",
+                "ki",
+                "luo",
+                "luy"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "ordinal": 10,
+        "name": "wallet_address",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 11,
+        "name": "mfa_enabled",
+        "type_info": "Bool"
+      },
+      {
+        "ordinal": 12,
+        "name": "created_at",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Text"
+      ]
+    },
+    "nullable": [
+      false,
+      true,
+      false,
+      true,
+      false,
+      false,
+      true,
+      true,
+      true,
+      false,
+      true,
+      false,
+      false
+    ]
+  },
+  "hash": "9a36ac9a25e95b6448695d74a094d643cc69d0cfd8fa24b6d2cad5afa5475949"
+}

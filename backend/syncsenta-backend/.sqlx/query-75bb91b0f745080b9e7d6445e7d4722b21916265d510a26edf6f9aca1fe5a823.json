@@ -1,0 +1,72 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT id, role as \"role: String\", approval_status as \"approval_status: String\",\n               school_id, county_id\n        FROM users\n        WHERE did = $1\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "role: String",
+        "type_info": {
+          "Custom": {
+            "name": "user_role",
+            "kind": {
+              "Enum": [
+                "student",
+                "parent",
+                "teacher",
+                "school_admin",
+                "school_head",
+                "county_officer",
+                "national_admin"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "ordinal": 2,
+        "name": "approval_status: String",
+        "type_info": {
+          "Custom": {
+            "name": "approval_status",
+            "kind": {
+              "Enum": [
+                "pending",
+                "approved",
+                "rejected"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "ordinal": 3,
+        "name": "school_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 4,
+        "name": "county_id",
+        "type_info": "Uuid"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Text"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      true,
+      true
+    ]
+  },
+  "hash": "75bb91b0f745080b9e7d6445e7d4722b21916265d510a26edf6f9aca1fe5a823"
+}

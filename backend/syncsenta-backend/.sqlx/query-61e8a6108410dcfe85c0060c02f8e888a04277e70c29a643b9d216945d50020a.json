@@ -1,0 +1,16 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        UPDATE users\n        SET vc_store = jsonb_set(\n            COALESCE(vc_store, '{}'::jsonb),\n            ARRAY[$1],\n            $2::jsonb\n        ),\n        updated_at = NOW()\n        WHERE id = $3\n        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Text",
+        "Jsonb",
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "61e8a6108410dcfe85c0060c02f8e888a04277e70c29a643b9d216945d50020a"
+}

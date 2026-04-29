@@ -1,0 +1,65 @@
+[package]
+name = "syncsenta-ai-training"
+version = "0.1.0"
+edition = "2021"
+description = "SyncSenta AI Training Infrastructure - Llama 3.1 fine-tuning on Kenya-LLM-Bench-v1"
+
+[dependencies]
+# Core ML framework
+candle-core = { git = "https://github.com/huggingface/candle.git", features = ["cuda", "mkl"] }
+candle-nn = { git = "https://github.com/huggingface/candle.git" }
+candle-transformers = { git = "https://github.com/huggingface/candle.git" }
+
+# Tokenization
+tokenizers = "0.15"
+hf-hub = "0.3"
+
+# AMD ROCm support
+rocm = { version = "0.1", optional = true }
+
+# Async runtime
+tokio = { version = "1.0", features = ["full"] }
+futures = "0.3"
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Error handling
+anyhow = "1.0"
+thiserror = "1.0"
+
+# Logging
+tracing = "0.1"
+tracing-subscriber = "0.3"
+
+# Progress tracking
+indicatif = "0.17"
+
+# Configuration
+config = "0.14"
+clap = { version = "4.0", features = ["derive"] }
+
+# Dataset processing
+csv = "1.3"
+rand = "0.8"
+
+# Metrics and monitoring
+prometheus = "0.13"
+
+[features]
+default = ["rocm"]
+rocm = ["dep:rocm"]
+cuda = []
+
+[[bin]]
+name = "train-kenya-llama"
+path = "src/bin/train.rs"
+
+[[bin]]
+name = "inference-server"
+path = "src/bin/inference.rs"
+
+[[bin]]
+name = "dataset-converter"
+path = "src/bin/convert_dataset.rs"

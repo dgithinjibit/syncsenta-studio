@@ -1,0 +1,373 @@
+{
+  "curriculum_name": "Competency Based Curriculum (CBC)",
+  "country": "Kenya",
+  "authority": "Kenya Institute of Curriculum Development (KICD)",
+  "version": "2024",
+  "grade_levels": {
+    "PP1": {
+      "name": "Pre-Primary 1",
+      "age_range": "4-5 years",
+      "subjects": {
+        "Mathematics": {
+          "strands": {
+            "Numbers": {
+              "sub_strands": ["Counting", "Number Recognition", "Number Formation"],
+              "learning_objectives": [
+                "Count objects up to 10",
+                "Recognize numerals 1-10",
+                "Form numerals 1-10 correctly"
+              ]
+            },
+            "Patterns": {
+              "sub_strands": ["Simple Patterns", "Color Patterns", "Shape Patterns"],
+              "learning_objectives": [
+                "Identify simple patterns in objects",
+                "Create patterns using colors",
+                "Extend given patterns"
+              ]
+            }
+          }
+        },
+        "English": {
+          "strands": {
+            "Listening and Speaking": {
+              "sub_strands": ["Oral Communication", "Vocabulary", "Pronunciation"],
+              "learning_objectives": [
+                "Listen to simple instructions",
+                "Speak clearly in simple sentences",
+                "Use basic English vocabulary"
+              ]
+            },
+            "Reading": {
+              "sub_strands": ["Letter Recognition", "Phonics", "Simple Words"],
+              "learning_objectives": [
+                "Recognize letters A-Z",
+                "Associate letters with sounds",
+                "Read simple 3-letter words"
+              ]
+            }
+          }
+        },
+        "Kiswahili": {
+          "strands": {
+            "Kusikiliza na Kuzungumza": {
+              "sub_strands": ["Maongezi", "Msamiati", "Matamshi"],
+              "learning_objectives": [
+                "Kusikiliza maagizo rahisi",
+                "Kuzungumza kwa sentensi rahisi",
+                "Kutumia msamiati wa kimsingi"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "PP2": {
+      "name": "Pre-Primary 2",
+      "age_range": "5-6 years",
+      "subjects": {
+        "Mathematics": {
+          "strands": {
+            "Numbers": {
+              "sub_strands": ["Counting", "Number Operations", "Number Comparison"],
+              "learning_objectives": [
+                "Count objects up to 20",
+                "Add numbers up to 10",
+                "Compare numbers using more/less"
+              ]
+            },
+            "Measurement": {
+              "sub_strands": ["Length", "Weight", "Time"],
+              "learning_objectives": [
+                "Compare lengths using longer/shorter",
+                "Compare weights using heavier/lighter",
+                "Identify day and night"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "Grade1": {
+      "name": "Grade 1",
+      "age_range": "6-7 years",
+      "subjects": {
+        "Mathematics": {
+          "strands": {
+            "Numbers": {
+              "sub_strands": ["Whole Numbers", "Number Operations", "Fractions"],
+              "learning_objectives": [
+                "Count and write numbers 1-100",
+                "Add and subtract within 20",
+                "Identify halves and quarters"
+              ]
+            },
+            "Measurement": {
+              "sub_strands": ["Length", "Mass", "Capacity", "Time", "Money"],
+              "learning_objectives": [
+                "Measure length using non-standard units",
+                "Compare masses of objects",
+                "Tell time to the hour",
+                "Identify Kenyan coins and notes"
+              ]
+            },
+            "Geometry": {
+              "sub_strands": ["2D Shapes", "3D Objects", "Position"],
+              "learning_objectives": [
+                "Identify basic 2D shapes",
+                "Recognize 3D objects in environment",
+                "Use positional language"
+              ]
+            }
+          }
+        },
+        "English": {
+          "strands": {
+            "Listening and Speaking": {
+              "sub_strands": ["Oral Communication", "Vocabulary Development", "Pronunciation"],
+              "learning_objectives": [
+                "Follow multi-step instructions",
+                "Express ideas in complete sentences",
+                "Use appropriate intonation"
+              ]
+            },
+            "Reading": {
+              "sub_strands": ["Phonics", "Sight Words", "Reading Comprehension"],
+              "learning_objectives": [
+                "Decode simple words using phonics",
+                "Recognize common sight words",
+                "Answer questions about simple texts"
+              ]
+            },
+            "Writing": {
+              "sub_strands": ["Handwriting", "Spelling", "Creative Writing"],
+              "learning_objectives": [
+                "Write letters and words legibly",
+                "Spell simple words correctly",
+                "Write simple sentences"
+              ]
+            }
+          }
+        },
+        "Kiswahili": {
+          "strands": {
+            "Kusikiliza na Kuzungumza": {
+              "sub_strands": ["Mazungumzo", "Msamiati", "Matamshi"],
+              "learning_objectives": [
+                "Kufuata maagizo ya hatua nyingi",
+                "Kueleza mawazo kwa sentensi kamili",
+                "Kutumia mlio unaofaa"
+              ]
+            },
+            "Kusoma": {
+              "sub_strands": ["Sauti za Herufi", "Maneno ya Kawaida", "Ufahamu"],
+              "learning_objectives": [
+                "Kusoma maneno rahisi kwa kutumia sauti za herufi",
+                "Kutambua maneno ya kawaida",
+                "Kujibu maswali kuhusu maandishi rahisi"
+              ]
+            }
+          }
+        },
+        "Environmental Activities": {
+          "strands": {
+            "Living Things": {
+              "sub_strands": ["Plants", "Animals", "Human Body"],
+              "learning_objectives": [
+                "Identify parts of plants",
+                "Classify animals by habitat",
+                "Name parts of the human body"
+              ]
+            },
+            "Non-Living Things": {
+              "sub_strands": ["Weather", "Materials", "Safety"],
+              "learning_objectives": [
+                "Describe weather conditions",
+                "Identify different materials",
+                "Practice safety at home and school"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "Grade2": {
+      "name": "Grade 2",
+      "age_range": "7-8 years",
+      "subjects": {
+        "Mathematics": {
+          "strands": {
+            "Numbers": {
+              "sub_strands": ["Whole Numbers", "Number Operations", "Fractions"],
+              "learning_objectives": [
+                "Count and write numbers 1-1000",
+                "Add and subtract within 100",
+                "Identify and compare fractions"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "Grade3": {
+      "name": "Grade 3",
+      "age_range": "8-9 years",
+      "subjects": {
+        "Mathematics": {
+          "strands": {
+            "Numbers": {
+              "sub_strands": ["Whole Numbers", "Number Operations", "Fractions", "Decimals"],
+              "learning_objectives": [
+                "Work with numbers up to 10,000",
+                "Multiply and divide within 100",
+                "Add and subtract fractions",
+                "Identify decimal places"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "Grade4": {
+      "name": "Grade 4",
+      "age_range": "9-10 years",
+      "subjects": {
+        "Mathematics": {
+          "strands": {
+            "Numbers": {
+              "sub_strands": ["Whole Numbers", "Number Operations", "Fractions", "Decimals", "Percentages"],
+              "learning_objectives": [
+                "Work with numbers up to 100,000",
+                "Perform multi-digit operations",
+                "Convert between fractions and decimals",
+                "Calculate simple percentages"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "Grade5": {
+      "name": "Grade 5",
+      "age_range": "10-11 years",
+      "subjects": {
+        "Mathematics": {
+          "strands": {
+            "Numbers": {
+              "sub_strands": ["Whole Numbers", "Fractions", "Decimals", "Percentages"],
+              "learning_objectives": [
+                "Work with numbers up to 1,000,000",
+                "Perform operations with fractions",
+                "Work with decimal operations",
+                "Solve percentage problems"
+              ]
+            },
+            "Algebra": {
+              "sub_strands": ["Patterns", "Simple Equations"],
+              "learning_objectives": [
+                "Identify number patterns",
+                "Solve simple algebraic equations"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "Grade6": {
+      "name": "Grade 6",
+      "age_range": "11-12 years",
+      "subjects": {
+        "Mathematics": {
+          "strands": {
+            "Numbers": {
+              "sub_strands": ["Whole Numbers", "Fractions", "Decimals", "Percentages", "Ratios"],
+              "learning_objectives": [
+                "Work with large numbers",
+                "Master fraction operations",
+                "Apply decimals in real contexts",
+                "Solve ratio problems"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "Grade7": {
+      "name": "Grade 7",
+      "age_range": "12-13 years",
+      "subjects": {
+        "Mathematics": {
+          "strands": {
+            "Numbers": {
+              "sub_strands": ["Integers", "Rational Numbers", "Irrational Numbers"],
+              "learning_objectives": [
+                "Work with positive and negative integers",
+                "Understand rational number operations",
+                "Identify irrational numbers"
+              ]
+            },
+            "Algebra": {
+              "sub_strands": ["Algebraic Expressions", "Linear Equations", "Inequalities"],
+              "learning_objectives": [
+                "Simplify algebraic expressions",
+                "Solve linear equations",
+                "Work with inequalities"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "Grade8": {
+      "name": "Grade 8",
+      "age_range": "13-14 years",
+      "subjects": {
+        "Mathematics": {
+          "strands": {
+            "Algebra": {
+              "sub_strands": ["Quadratic Expressions", "Simultaneous Equations", "Functions"],
+              "learning_objectives": [
+                "Factor quadratic expressions",
+                "Solve simultaneous equations",
+                "Understand function notation"
+              ]
+            },
+            "Geometry": {
+              "sub_strands": ["Coordinate Geometry", "Transformations", "Circle Geometry"],
+              "learning_objectives": [
+                "Plot points on coordinate plane",
+                "Apply geometric transformations",
+                "Calculate circle properties"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "Grade9": {
+      "name": "Grade 9",
+      "age_range": "14-15 years",
+      "subjects": {
+        "Mathematics": {
+          "strands": {
+            "Algebra": {
+              "sub_strands": ["Quadratic Equations", "Exponential Functions", "Logarithms"],
+              "learning_objectives": [
+                "Solve quadratic equations",
+                "Work with exponential functions",
+                "Apply logarithmic properties"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "cultural_contexts": {
+    "kenyan_foods": ["ugali", "sukuma wiki", "chapati", "nyama choma", "githeri", "mukimo", "mandazi", "samosa"],
+    "kenyan_greetings": ["Habari", "Mambo", "Karibu", "Asante", "Pole", "Hujambo"],
+    "kenyan_scenarios": ["market", "shamba", "matatu", "school", "church", "home", "hospital"],
+    "kenyan_animals": ["simba", "tembo", "twiga", "kiboko", "nyati", "duma"],
+    "kenyan_places": ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret", "Thika", "Machakos"]
+  }
+}

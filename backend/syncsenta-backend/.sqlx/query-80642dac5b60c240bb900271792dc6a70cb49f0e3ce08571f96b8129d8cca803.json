@@ -1,0 +1,139 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT id, email, phone, role as \"role: String\", approval_status as \"approval_status: String\",\n               approved_by, school_id, county_id, language_preference as \"language_preference: String\",\n               password_hash, mfa_enabled, mfa_secret, wallet_address, created_at\n        FROM users WHERE email = $1\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "email",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 2,
+        "name": "phone",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 3,
+        "name": "role: String",
+        "type_info": {
+          "Custom": {
+            "name": "user_role",
+            "kind": {
+              "Enum": [
+                "student",
+                "parent",
+                "teacher",
+                "school_admin",
+                "school_head",
+                "county_officer",
+                "national_admin"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "ordinal": 4,
+        "name": "approval_status: String",
+        "type_info": {
+          "Custom": {
+            "name": "approval_status",
+            "kind": {
+              "Enum": [
+                "pending",
+                "approved",
+                "rejected"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "ordinal": 5,
+        "name": "approved_by",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 6,
+        "name": "school_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 7,
+        "name": "county_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 8,
+        "name": "language_preference: String",
+        "type_info": {
+          "Custom": {
+            "name": "supported_language",
+            "kind": {
+              "Enum": [
+                "en",
+                "sw",
+                "ki",
+                "luo",
+                "luy"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "ordinal": 9,
+        "name": "password_hash",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 10,
+        "name": "mfa_enabled",
+        "type_info": "Bool"
+      },
+      {
+        "ordinal": 11,
+        "name": "mfa_secret",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 12,
+        "name": "wallet_address",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 13,
+        "name": "created_at",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Text"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      true,
+      false,
+      false,
+      true,
+      true,
+      true,
+      false,
+      false,
+      false,
+      true,
+      true,
+      false
+    ]
+  },
+  "hash": "80642dac5b60c240bb900271792dc6a70cb49f0e3ce08571f96b8129d8cca803"
+}

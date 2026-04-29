@@ -1,0 +1,62 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        INSERT INTO users\n            (id, did, email, phone, role, approval_status, school_id, county_id,\n             language_preference, wallet_address, mfa_enabled, created_at, updated_at)\n        VALUES ($1,$2,$3,$4,$5::user_role,$6::approval_status,$7,$8,$9::supported_language,$10,false,NOW(),NOW())\n        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Varchar",
+        "Varchar",
+        "Varchar",
+        {
+          "Custom": {
+            "name": "user_role",
+            "kind": {
+              "Enum": [
+                "student",
+                "parent",
+                "teacher",
+                "school_admin",
+                "school_head",
+                "county_officer",
+                "national_admin"
+              ]
+            }
+          }
+        },
+        {
+          "Custom": {
+            "name": "approval_status",
+            "kind": {
+              "Enum": [
+                "pending",
+                "approved",
+                "rejected"
+              ]
+            }
+          }
+        },
+        "Uuid",
+        "Uuid",
+        {
+          "Custom": {
+            "name": "supported_language",
+            "kind": {
+              "Enum": [
+                "en",
+                "sw",
+                "ki",
+                "luo",
+                "luy"
+              ]
+            }
+          }
+        },
+        "Varchar"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "07ef7f2f0f4734c73b22207c46c5c9e24a17fa9b9696c5f75b929ac7c3477483"
+}

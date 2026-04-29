@@ -1,0 +1,160 @@
+{
+  "kenyan_cultural_elements": {
+    "foods": {
+      "staples": [
+        {"name": "ugali", "description": "Cornmeal staple food", "context": "eaten with vegetables or meat"},
+        {"name": "sukuma wiki", "description": "Collard greens", "context": "popular vegetable dish"},
+        {"name": "chapati", "description": "Flatbread", "context": "often eaten with tea or stew"},
+        {"name": "githeri", "description": "Maize and beans", "context": "nutritious traditional dish"},
+        {"name": "mukimo", "description": "Mashed potatoes with greens", "context": "Kikuyu traditional dish"},
+        {"name": "nyama choma", "description": "Roasted meat", "context": "popular for celebrations"}
+      ],
+      "snacks": [
+        {"name": "mandazi", "description": "Sweet fried bread", "context": "popular breakfast or snack"},
+        {"name": "samosa", "description": "Fried pastry with filling", "context": "popular street food"},
+        {"name": "mahamri", "description": "Coconut bread", "context": "coastal delicacy"},
+        {"name": "mutura", "description": "Traditional sausage", "context": "street food favorite"}
+      ],
+      "fruits": [
+        {"name": "mango", "description": "Tropical fruit", "context": "abundant during mango season"},
+        {"name": "avocado", "description": "Nutritious fruit", "context": "often eaten with bread"},
+        {"name": "passion fruit", "description": "Tangy fruit", "context": "used for juice"},
+        {"name": "pineapple", "description": "Sweet tropical fruit", "context": "grown in coastal regions"}
+      ]
+    },
+    "greetings": {
+      "swahili": [
+        {"phrase": "Habari", "meaning": "How are you?", "response": "Nzuri", "context": "general greeting"},
+        {"phrase": "Mambo", "meaning": "What's up?", "response": "Poa", "context": "casual greeting"},
+        {"phrase": "Karibu", "meaning": "Welcome", "response": "Asante", "context": "welcoming someone"},
+        {"phrase": "Hujambo", "meaning": "How are you?", "response": "Sijambo", "context": "formal greeting"},
+        {"phrase": "Shikamoo", "meaning": "Respectful greeting", "response": "Marahaba", "context": "greeting elders"}
+      ],
+      "english_kenyan": [
+        {"phrase": "How are you?", "response": "I'm fine", "context": "standard greeting"},
+        {"phrase": "Good morning", "response": "Good morning", "context": "morning greeting"},
+        {"phrase": "How's life?", "response": "Life is good", "context": "casual check-in"}
+      ]
+    },
+    "common_scenarios": {
+      "market": {
+        "description": "Local market setting",
+        "vocabulary": ["vendor", "customer", "bargain", "price", "vegetables", "fruits"],
+        "cultural_notes": "Markets are social hubs where people negotiate prices"
+      },
+      "shamba": {
+        "description": "Farm or garden",
+        "vocabulary": ["crops", "harvest", "planting", "rain", "seasons"],
+        "cultural_notes": "Many Kenyans have small farms for subsistence"
+      },
+      "matatu": {
+        "description": "Public transport vehicle",
+        "vocabulary": ["conductor", "fare", "route", "passengers", "music"],
+        "cultural_notes": "Colorful public transport with loud music and decorations"
+      },
+      "school": {
+        "description": "Educational setting",
+        "vocabulary": ["teacher", "student", "uniform", "assembly", "exams"],
+        "cultural_notes": "Students wear uniforms and show respect to teachers"
+      },
+      "home": {
+        "description": "Family setting",
+        "vocabulary": ["family", "chores", "meals", "siblings", "parents"],
+        "cultural_notes": "Extended families often live together or nearby"
+      }
+    },
+    "animals": {
+      "wild": [
+        {"name": "simba", "english": "lion", "habitat": "savanna"},
+        {"name": "tembo", "english": "elephant", "habitat": "national parks"},
+        {"name": "twiga", "english": "giraffe", "habitat": "savanna"},
+        {"name": "kiboko", "english": "hippopotamus", "habitat": "rivers and lakes"},
+        {"name": "nyati", "english": "buffalo", "habitat": "grasslands"},
+        {"name": "duma", "english": "cheetah", "habitat": "open plains"}
+      ],
+      "domestic": [
+        {"name": "ng'ombe", "english": "cow", "use": "milk and meat"},
+        {"name": "mbuzi", "english": "goat", "use": "milk and meat"},
+        {"name": "kuku", "english": "chicken", "use": "eggs and meat"},
+        {"name": "mbwa", "english": "dog", "use": "security and companionship"}
+      ]
+    },
+    "places": {
+      "cities": [
+        {"name": "Nairobi", "description": "Capital city", "features": ["skyscrapers", "traffic", "business"]},
+        {"name": "Mombasa", "description": "Coastal city", "features": ["beaches", "port", "tourism"]},
+        {"name": "Kisumu", "description": "Lakeside city", "features": ["Lake Victoria", "fishing", "trade"]},
+        {"name": "Nakuru", "description": "Rift Valley city", "features": ["flamingos", "lake", "farming"]}
+      ],
+      "landmarks": [
+        {"name": "Mount Kenya", "description": "Second highest mountain in Africa"},
+        {"name": "Maasai Mara", "description": "Famous wildlife reserve"},
+        {"name": "Lake Victoria", "description": "Largest lake in Africa"},
+        {"name": "Indian Ocean", "description": "Coastal waters with beautiful beaches"}
+      ]
+    },
+    "language_patterns": {
+      "code_switching": {
+        "description": "Natural mixing of English and Swahili",
+        "examples": [
+          {"mixed": "Karibu to our class", "pure_english": "Welcome to our class"},
+          {"mixed": "Let's count the mangoes, moja, mbili, tatu", "pure_english": "Let's count the mangoes, one, two, three"},
+          {"mixed": "Asante for helping me", "pure_english": "Thank you for helping me"},
+          {"mixed": "Pole, try again", "pure_english": "Sorry, try again"}
+        ]
+      },
+      "kenyan_english": {
+        "description": "English with Kenyan expressions",
+        "examples": [
+          {"kenyan": "How now?", "standard": "How are you?"},
+          {"kenyan": "I'm coming", "standard": "I'm on my way"},
+          {"kenyan": "Reach me", "standard": "Contact me"},
+          {"kenyan": "We move", "standard": "Let's go"}
+        ]
+      }
+    },
+    "educational_contexts": {
+      "classroom_culture": {
+        "respect_for_teachers": "Students stand when teacher enters",
+        "uniform_culture": "All students wear school uniforms",
+        "assembly_culture": "Daily morning assembly with prayers and announcements",
+        "group_work": "Students often work in groups and help each other"
+      },
+      "learning_materials": {
+        "common_items": ["exercise books", "pencils", "rulers", "erasers"],
+        "shared_resources": "Students often share textbooks and materials",
+        "local_examples": "Math problems use local currency (shillings) and familiar contexts"
+      }
+    }
+  },
+  "pedagogical_techniques": {
+    "socratic_method": {
+      "description": "Guide students to discover answers through questions",
+      "question_types": [
+        "What do you notice about...?",
+        "How is this similar to...?",
+        "What would happen if...?",
+        "Can you explain why...?",
+        "What pattern do you see...?"
+      ]
+    },
+    "scaffolding": {
+      "description": "Provide support that gradually decreases",
+      "levels": [
+        "Direct instruction with examples",
+        "Guided practice with hints",
+        "Independent practice with feedback",
+        "Mastery demonstration"
+      ]
+    },
+    "cultural_responsiveness": {
+      "description": "Connect learning to students' cultural background",
+      "strategies": [
+        "Use familiar foods in math problems",
+        "Reference local places and animals",
+        "Include family and community contexts",
+        "Respect linguistic diversity"
+      ]
+    }
+  }
+}

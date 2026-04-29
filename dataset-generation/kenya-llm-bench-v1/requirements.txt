@@ -1,0 +1,21 @@
+# Kenya-LLM-Bench-v1 Dataset Generation Requirements
+
+# Core dependencies
+datasets>=2.14.0
+huggingface_hub>=0.17.0
+pandas>=2.0.0
+numpy>=1.24.0
+pyyaml>=6.0
+
+# Data processing
+jsonlines>=3.1.0
+tqdm>=4.65.0
+
+# Optional: For advanced features
+transformers>=4.30.0  # For tokenization analysis
+evaluate>=0.4.0       # For quality metrics
+
+# Development dependencies
+pytest>=7.4.0
+black>=23.0.0
+flake8>=6.0.0

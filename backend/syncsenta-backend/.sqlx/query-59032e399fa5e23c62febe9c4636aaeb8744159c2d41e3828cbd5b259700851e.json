@@ -1,0 +1,56 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        INSERT INTO schemes (id, teacher_id, curriculum_ref, subject, grade_level, language, content, ipfs_cid, created_at)\n        VALUES ($1, $2, $3, $4, $5::cbc_grade_level, $6::supported_language, $7, $8, NOW())\n        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid",
+        "Varchar",
+        "Varchar",
+        {
+          "Custom": {
+            "name": "cbc_grade_level",
+            "kind": {
+              "Enum": [
+                "PP1",
+                "PP2",
+                "Grade1",
+                "Grade2",
+                "Grade3",
+                "Grade4",
+                "Grade5",
+                "Grade6",
+                "JSS1",
+                "JSS2",
+                "JSS3",
+                "SSS1",
+                "SSS2",
+                "SSS3"
+              ]
+            }
+          }
+        },
+        {
+          "Custom": {
+            "name": "supported_language",
+            "kind": {
+              "Enum": [
+                "en",
+                "sw",
+                "ki",
+                "luo",
+                "luy"
+              ]
+            }
+          }
+        },
+        "Jsonb",
+        "Varchar"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "59032e399fa5e23c62febe9c4636aaeb8744159c2d41e3828cbd5b259700851e"
+}

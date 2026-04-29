@@ -1,0 +1,22 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT COALESCE(SUM(amount::bigint), 0)\n        FROM token_transactions\n        WHERE from_address = $1 AND transaction_type = 'burn'\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "coalesce",
+        "type_info": "Numeric"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Text"
+      ]
+    },
+    "nullable": [
+      null
+    ]
+  },
+  "hash": "defc6a2c3554f22e6d18453d2571ff770375265e0d51a2e0844b3608eaf94f5e"
+}

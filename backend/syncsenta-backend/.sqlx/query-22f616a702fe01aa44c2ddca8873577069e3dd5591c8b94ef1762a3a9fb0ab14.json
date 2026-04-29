@@ -1,0 +1,20 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        INSERT INTO token_transactions (\n            id, tx_hash, from_address, to_address, amount,\n            transaction_type, metadata, timestamp, created_at\n        )\n        VALUES ($1, $2, $3, $4, $5, 'pending_mint', $6, $7, NOW())\n        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Varchar",
+        "Varchar",
+        "Varchar",
+        "Varchar",
+        "Jsonb",
+        "Int8"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "22f616a702fe01aa44c2ddca8873577069e3dd5591c8b94ef1762a3a9fb0ab14"
+}
