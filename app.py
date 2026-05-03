@@ -1,70 +1,26 @@
-"""SyncSenta Education OS - Main application entry point.
+"""SyncSenta Education OS — AI Agents API server.
 
-Serves the React-like frontend on port 5000 and mounts the AI agents API
-under /agents/* using a single Uvicorn process.
+Runs the FastAPI AI agents service on port 8000 (localhost only).
+The Vite dev server (port 5000) proxies /agents/* and /healthz here.
 
-Set SYNCSENTA_OFFLINE_DEMO=1 to run without Ollama (uses deterministic stubs).
+Set SYNCSENTA_OFFLINE_DEMO=1 (default) to run without Ollama.
 """
 
 import os
 import sys
 
-# Ensure the ai-agents source is importable
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "ai-agents", "src"))
-
-# Enable offline demo mode by default in this environment
 os.environ.setdefault("SYNCSENTA_OFFLINE_DEMO", "1")
 
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
-
-from syncsenta_agents.api.server import app as agents_app
-
-# ---------------------------------------------------------------------------
-# Root application
-# ---------------------------------------------------------------------------
-
-app = FastAPI(title="SyncSenta Education OS", version="1.0.0")
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=False,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-# Mount AI agents API
-app.mount("/agents", agents_app)
-
-# Serve static frontend files
-app.mount("/static", StaticFiles(directory="frontend"), name="static")
-
-
-@app.get("/healthz")
-async def health():
-    return {"status": "ok", "service": "syncsenta-education-os"}
-
-
-@app.get("/")
-async def index():
-    return FileResponse("frontend/index.html")
-
-
-@app.get("/{path:path}")
-async def catch_all(path: str):
-    """Serve index.html for any unknown path (SPA fallback)."""
-    return FileResponse("frontend/index.html")
-
+# Use the agents app directly — its routes are already at /agents/*, /healthz
+from syncsenta_agents.api.server import app  # noqa: F401 — imported for uvicorn
 
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(
         "app:app",
-        host="0.0.0.0",
-        port=5000,
+        host="localhost",
+        port=8000,
         reload=False,
         log_level="info",
     )
