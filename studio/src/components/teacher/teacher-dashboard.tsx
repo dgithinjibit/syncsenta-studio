@@ -39,6 +39,50 @@ interface AgentActivity {
   task: string;
   confidence: number;
   timestamp: string;
+  recommendation?: string;
+  student_id?: string;
+  agents_used?: string[];
+}
+
+// Generate teacher recommendations based on AI agent activity
+function generateTeacherRecommendation(agentData: any): string {
+  const agent = agentData.agent;
+  const agentsUsed = agentData.agents_used || [];
+  
+  // Multi-agent recommendations
+  if (agentsUsed.includes('emotional_intelligence')) {
+    return 'Student may need emotional support. Consider checking in personally or adjusting teaching approach.';
+  }
+  
+  if (agentsUsed.includes('translation')) {
+    return 'Student is using language translation. Consider providing bilingual materials or extra language support.';
+  }
+  
+  if (agentsUsed.length > 2) {
+    return 'Complex question requiring multiple agents. Student may benefit from one-on-one tutoring session.';
+  }
+  
+  // Single agent recommendations
+  switch (agent) {
+    case 'tutoring':
+    case 'socratic_tutor':
+      return 'Student is actively learning. Monitor progress and provide encouragement.';
+    
+    case 'assessment':
+      return 'Student is being assessed. Review results and provide targeted feedback.';
+    
+    case 'emotional_intelligence':
+      return 'Emotional state detected. Consider personal check-in or counseling referral if needed.';
+    
+    case 'content':
+      return 'Student accessing learning materials. Ensure content is appropriate for their level.';
+    
+    case 'analytics':
+      return 'Performance data being analyzed. Review insights for intervention opportunities.';
+    
+    default:
+      return 'AI agent is assisting student. Monitor interaction for quality assurance.';
+  }
 }
 
 export function TeacherDashboard() {
@@ -75,12 +119,18 @@ export function TeacherDashboard() {
             }
 
             if (data.type === 'agent_activity') {
+              // Generate teacher recommendation based on agent activity
+              const recommendation = generateTeacherRecommendation(data);
+              
               setAgentActivities((prev) => [
                 {
                   agent: data.agent,
-                  task: `Processing for student`,
+                  task: `Processing ${data.student_id}'s question`,
                   confidence: 0.85,
                   timestamp: new Date().toISOString(),
+                  recommendation,
+                  student_id: data.student_id,
+                  agents_used: data.agents_used || [data.agent],
                 },
                 ...prev.slice(0, 19),
               ]);

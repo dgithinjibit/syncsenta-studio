@@ -11,6 +11,9 @@ interface AgentActivity {
   task: string;
   confidence: number;
   timestamp: string;
+  recommendation?: string;
+  student_id?: string;
+  agents_used?: string[];
 }
 
 interface AgentActivityProps {
@@ -61,7 +64,7 @@ export function AgentActivity({ activities }: AgentActivityProps) {
                 const color = agentColors[activity.agent] || 'text-gray-500';
 
                 return (
-                  <div key={index} className="border rounded-lg p-4 space-y-2">
+                  <div key={index} className="border rounded-lg p-4 space-y-3">
                     <div className="flex items-start justify-between">
                       <div className="flex items-center gap-2">
                         <Icon className={`h-5 w-5 ${color}`} />
@@ -76,7 +79,29 @@ export function AgentActivity({ activities }: AgentActivityProps) {
                         {Math.round(activity.confidence * 100)}% confident
                       </Badge>
                     </div>
+                    
+                    {activity.agents_used && activity.agents_used.length > 1 && (
+                      <div className="flex flex-wrap gap-1">
+                        {activity.agents_used.map((agent, i) => (
+                          <Badge key={i} variant="secondary" className="text-xs">
+                            {agent.replace('_', ' ')}
+                          </Badge>
+                        ))}
+                      </div>
+                    )}
+                    
                     <Progress value={activity.confidence * 100} className="h-2" />
+                    
+                    {activity.recommendation && (
+                      <div className="bg-muted rounded-lg p-3 mt-2">
+                        <p className="text-sm font-medium mb-1 flex items-center gap-2">
+                          <Sparkles className="h-4 w-4 text-primary" />
+                          Teacher Recommendation
+                        </p>
+                        <p className="text-sm text-muted-foreground">{activity.recommendation}</p>
+                      </div>
+                    )}
+                    
                     <p className="text-xs text-muted-foreground">
                       {new Date(activity.timestamp).toLocaleTimeString()}
                     </p>
