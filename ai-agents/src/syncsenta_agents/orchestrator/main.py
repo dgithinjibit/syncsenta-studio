@@ -6,6 +6,7 @@ from datetime import datetime
 from ..core.models import AgentRequest, AgentResponse
 from ..core.logging import AgentLogger
 from ..agents.assessment import AssessmentAgent
+from ..agents.tutoring import TutoringAgent
 from .workflow import LangGraphOrchestrator
 from .failure_recovery import FailureRecoveryManager
 
@@ -37,6 +38,11 @@ class SyncSentaOrchestrator:
             # responses in the workflow until their migration completes.
             self.workflow_orchestrator.register_agent(
                 "assessment", AssessmentAgent()
+            )
+            # Tutoring_Agent — registered under "socratic_tutor" so the
+            # existing workflow routing slot picks it up for student questions.
+            self.workflow_orchestrator.register_agent(
+                "socratic_tutor", TutoringAgent()
             )
 
             self._initialized = True

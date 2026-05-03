@@ -1,6 +1,7 @@
 // STUDENT-FOCUSED BUILD: Only student-related handlers active
 pub mod assessments;  // Student assessments and MeTTa
 pub mod auth;         // Authentication (needed for student login)
+pub mod mvp;          // MVP vertical slice: chat + WS + teacher dashboard
 pub mod mwalimu;      // Mwalimu AI chat for students
 pub mod translation;  // Gikuyu translation for multilingual learning
 

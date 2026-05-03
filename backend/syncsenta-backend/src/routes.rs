@@ -5,6 +5,11 @@ use crate::config::AppConfig;
 use crate::middleware::auth::require_auth;
 
 pub fn all_routes(db: PgPool, cfg: AppConfig) -> Router {
+    // MVP slice — no auth, in-memory roster + broadcast + WS. Mounted under
+    // /api/v1/mvp so it sits alongside the auth-gated production routes.
+    let mvp_state = crate::handlers::mvp::build_state(&cfg);
+    let mvp = Router::new().nest("/mvp", crate::handlers::mvp::router(mvp_state));
+
     // Public routes (no auth required)
     let public = Router::new()
         .nest("/auth", crate::handlers::auth::router(db.clone(), cfg.clone()));
@@ -31,6 +36,7 @@ pub fn all_routes(db: PgPool, cfg: AppConfig) -> Router {
         ));
 
     Router::new()
+        .merge(mvp)
         .merge(public)
         .merge(protected)
 }

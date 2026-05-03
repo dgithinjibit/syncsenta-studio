@@ -5,6 +5,8 @@ from datetime import datetime
 import asyncio
 from enum import Enum
 
+import os
+
 from langgraph.graph import StateGraph, END
 try:
     from langchain.schema import BaseMessage, HumanMessage, AIMessage, SystemMessage
@@ -215,6 +217,14 @@ If multiple agents are needed, respond with MULTI_AGENT.
     
     async def _classify_request(self, prompt: str) -> Dict[str, Any]:
         """Use LLM to classify the request."""
+        if os.environ.get("SYNCSENTA_OFFLINE_DEMO") == "1":
+            # Skip Ollama — keyword-route so offline demo works without a model.
+            return {
+                "agent_type": self._keyword_route(prompt),
+                "confidence": 0.6,
+                "reasoning": "offline-demo keyword routing",
+                "multi_agent": False,
+            }
         try:
             # Get LLM response
             response = await asyncio.to_thread(
@@ -258,6 +268,19 @@ If multiple agents are needed, respond with MULTI_AGENT.
     def _should_route(self, state: AgentState) -> str:
         """Determine which node to route to based on analysis."""
         return state["routing_decision"]
+
+    def _keyword_route(self, prompt: str) -> str:
+        """Cheap deterministic router used when no LLM is available."""
+        text = prompt.lower()
+        if any(k in text for k in ("quiz", "test me", "grade", "mark this", "score")):
+            return RoutingDecision.ASSESSMENT
+        if any(k in text for k in ("lesson plan", "scheme of work", "worksheet")):
+            return RoutingDecision.LESSON_ARCHITECT
+        if any(k in text for k in ("career", "pathway", "what should i become")):
+            return RoutingDecision.CAREER_PATHWAYS
+        if any(k in text for k in ("kicd", "competency", "strand")):
+            return RoutingDecision.CBC_CURRICULUM
+        return RoutingDecision.SOCRATIC_TUTOR
     
     async def _route_to_agent(self, state: AgentState) -> AgentState:
         """Route request to appropriate agent (legacy method)."""
@@ -521,16 +544,25 @@ If multiple agents are needed, respond with MULTI_AGENT.
         context: Dict[str, Any]
     ) -> str:
         """Synthesize multiple agent responses into coherent output."""
-        # Build synthesis prompt
+        # Offline demo: skip the LLM synthesis call (Ollama unreachable) and
+        # concatenate agent outputs deterministically.
+        if os.environ.get("SYNCSENTA_OFFLINE_DEMO") == "1":
+            parts = []
+            for agent_name, response in responses.items():
+                text = response.get("response", str(response)).strip()
+                if text:
+                    parts.append(text)
+            return "\n\n".join(parts)
+
         synthesis_prompt = """You are synthesizing responses from multiple AI agents into a coherent answer.
 Combine the following agent responses into a single, well-structured response:
 
 """
-        
+
         for agent_name, response in responses.items():
             response_text = response.get("response", str(response))
             synthesis_prompt += f"\n{agent_name.upper()}:\n{response_text}\n"
-        
+
         synthesis_prompt += """
 Create a coherent, educational response that:
 1. Maintains CBC curriculum alignment
@@ -538,13 +570,12 @@ Create a coherent, educational response that:
 3. Provides clear, actionable information
 4. Flows naturally without mentioning individual agents
 """
-        
-        # Use LLM to synthesize
+
         synthesized = await asyncio.to_thread(
             self.analysis_llm.invoke,
             synthesis_prompt
         )
-        
+
         return synthesized.strip()
     
     async def _handle_error(self, state: AgentState) -> AgentState:

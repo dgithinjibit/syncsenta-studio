@@ -5,6 +5,7 @@ from typing import Dict, Any
 
 from .core.config import config
 from .core.logging import configure_logging, get_logger
+from .core.models import AgentRequest
 from .orchestrator.main import SyncSentaOrchestrator
 
 
@@ -30,17 +31,15 @@ async def main() -> None:
         logger.info("SyncSenta AI Agents system initialized successfully")
         
         # Example usage
-        test_request = {
-            "message": "What are the Grade 4 Mathematics learning outcomes for fractions?",
-            "context": {
-                "userId": "user1",
-                "grade": "g4",
-                "subject": "Mathematics",
-                "role": "student"
-            }
-        }
-        
-        logger.info("Processing test request", request=test_request)
+        test_request = AgentRequest(
+            message="What are the Grade 4 Mathematics learning outcomes for fractions?",
+            user_id="user1",
+            grade="g4",
+            subject="Mathematics",
+            role="student",
+        )
+
+        logger.info("Processing test request", request=test_request.model_dump())
         response = await orchestrator.process_request(test_request)
         
         logger.info(

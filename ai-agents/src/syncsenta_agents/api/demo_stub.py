@@ -119,8 +119,35 @@ class DemoStubLLM:
             return json.dumps(self._grade_short_answer(prompt))
         if "feedback coach" in s:
             return json.dumps(self._coach_feedback(prompt))
+        if "tutoring agent" in s:
+            return self._tutor_reply(prompt)
 
         return json.dumps({"response": "ok"})
+
+    def _tutor_reply(self, prompt: str) -> str:
+        """Plain-prose canned tutoring reply for offline demos."""
+        text = prompt.lower()
+        if "fraction" in text:
+            return (
+                "A fraction shows part of a whole. If you cut a chapati into 4 "
+                "equal slices and eat 1, you have eaten 1/4 of it. The bottom "
+                "number tells you how many equal parts there are; the top "
+                "number tells you how many you have. Try drawing it on paper — "
+                "what fraction is left if you eat 2 slices?"
+            )
+        if "photosynthesis" in text or "plant" in text:
+            return (
+                "Plants make their own food using sunlight, water from the "
+                "soil, and carbon dioxide from the air. This happens in the "
+                "green parts of the leaf. The food they make is sugar, and "
+                "they release oxygen as a leftover. That is why trees keep "
+                "the air around us fresh."
+            )
+        return (
+            "Great question! Let's think it through together. First, can you "
+            "tell me what you already know about this topic? That way we can "
+            "build on it step by step."
+        )
 
     # ---- generators -----------------------------------------------------
 

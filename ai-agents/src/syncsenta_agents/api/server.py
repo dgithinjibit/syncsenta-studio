@@ -20,7 +20,8 @@ from pydantic import BaseModel, Field
 
 from ..agents.assessment import AssessmentAgent
 from ..core.exceptions import AgentError
-from ..core.models import Quiz, QuizSubmission
+from ..core.models import AgentRequest, Quiz, QuizSubmission
+from ..orchestrator.main import SyncSentaOrchestrator
 
 
 # ---------------------------------------------------------------------------
@@ -40,6 +41,17 @@ class QuizRequest(BaseModel):
 class GradeRequest(BaseModel):
     quiz: Dict[str, Any]
     submission: Dict[str, Any]
+
+
+class ChatRequest(BaseModel):
+    """Student message routed through the Teacher_Agent orchestrator."""
+    message: str
+    user_id: str = "anonymous"
+    session_id: Optional[str] = None
+    grade: Optional[str] = None
+    subject: Optional[str] = None
+    language: str = "english"
+    role: str = "student"
 
 
 # ---------------------------------------------------------------------------
@@ -68,6 +80,7 @@ def _build_agent() -> AssessmentAgent:
 
 
 _agent: Optional[AssessmentAgent] = None
+_orchestrator: Optional[SyncSentaOrchestrator] = None
 
 
 def get_agent() -> AssessmentAgent:
@@ -75,6 +88,32 @@ def get_agent() -> AssessmentAgent:
     if _agent is None:
         _agent = _build_agent()
     return _agent
+
+
+async def get_orchestrator() -> SyncSentaOrchestrator:
+    """Return the multi-agent orchestrator (Teacher_Agent + 7 specialists).
+
+    Normally initialized on FastAPI startup; falls back to lazy init for tests
+    or direct ASGI mounting that skips the lifespan event.
+    """
+    global _orchestrator
+    if _orchestrator is None:
+        orch = SyncSentaOrchestrator()
+        await orch.initialize()
+        _orchestrator = orch
+    return _orchestrator
+
+
+@app.on_event("startup")
+async def _warm_orchestrator() -> None:
+    # Pay the LangGraph + agent-registry boot cost once at server start so
+    # the first /agents/chat request doesn't take the hit.
+    try:
+        await get_orchestrator()
+    except Exception:
+        # Don't block server startup on orchestrator init — get_orchestrator
+        # will retry lazily on first request and surface the error there.
+        pass
 
 
 # ---------------------------------------------------------------------------
@@ -102,6 +141,39 @@ async def generate_quiz(req: QuizRequest) -> Dict[str, Any]:
             question_types=req.question_types,
         )
         return quiz.model_dump(mode="json")
+    except AgentError as exc:
+        raise HTTPException(status_code=502, detail=str(exc)) from exc
+
+
+@app.post("/agents/chat")
+async def agent_chat(req: ChatRequest) -> Dict[str, Any]:
+    """Route a student message through Teacher_Agent → specialist agent.
+
+    Returns the synthesized response plus which agents participated, so the
+    Rust backend can broadcast both the message and the agent activity over
+    WebSocket to the teacher dashboard.
+    """
+    try:
+        orch = await get_orchestrator()
+        agent_req = AgentRequest(
+            message=req.message,
+            user_id=req.user_id,
+            session_id=req.session_id,
+            grade=req.grade,
+            subject=req.subject,
+            role=req.role,
+            context={"language": req.language},
+        )
+        resp = await orch.process_request(agent_req)
+        return {
+            "success": resp.success,
+            "response": resp.response,
+            "primary_agent": resp.primary_agent,
+            "agents_used": resp.agents_used,
+            "response_time_ms": resp.response_time_ms,
+            "fallback_used": resp.fallback_used,
+            "error": resp.error,
+        }
     except AgentError as exc:
         raise HTTPException(status_code=502, detail=str(exc)) from exc
 
