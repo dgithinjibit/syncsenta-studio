@@ -116,6 +116,21 @@ export function MwalimuChat({
           try {
             const data = JSON.parse(event.data);
             
+            if (data.type === 'student_message' && data.message?.student_id === studentId) {
+              // Prevent duplicate messages by checking if ID already exists
+              setMessages((prev) => {
+                const exists = prev.some(msg => msg.id === data.message.id);
+                if (exists) return prev;
+                
+                return [...prev, {
+                  id: data.message.id,
+                  sender: 'student',
+                  text: data.message.text,
+                  timestamp: data.message.timestamp,
+                }];
+              });
+            }
+            
             if (data.type === 'agent_response' && data.message?.student_id === studentId) {
               // Prevent duplicate messages by checking if ID already exists
               setMessages((prev) => {
@@ -270,7 +285,7 @@ export function MwalimuChat({
     if (!inputText.trim() || isLoading) return;
 
     const userMessage: Message = {
-      id: `msg_${Date.now()}`,
+      id: `local_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`, // Temporary local ID
       sender: 'student',
       text: inputText.trim(),
       timestamp: new Date().toISOString(),
