@@ -101,7 +101,22 @@ export function MwalimuChat({
 
   useEffect(() => {
     // WebSocket must connect directly to backend (Next.js rewrites don't support WS)
-    const wsUrl = 'ws://localhost:8080/api/v1/mvp/ws';
+    // Use environment variable for backend URL, or construct from current location
+    const getWebSocketUrl = () => {
+      // If NEXT_PUBLIC_BACKEND_WS_URL is set, use it
+      if (typeof window !== 'undefined' && process.env.NEXT_PUBLIC_BACKEND_WS_URL) {
+        return process.env.NEXT_PUBLIC_BACKEND_WS_URL;
+      }
+      
+      // Otherwise, construct from current location
+      const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+      const host = window.location.hostname === 'localhost' 
+        ? 'localhost:8080' 
+        : window.location.host.replace('-5173', '-8080'); // Codespaces port forwarding pattern
+      return `${protocol}//${host}/api/v1/mvp/ws`;
+    };
+    
+    const wsUrl = getWebSocketUrl();
 
     const connectWebSocket = () => {
       try {
