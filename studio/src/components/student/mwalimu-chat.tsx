@@ -117,14 +117,20 @@ export function MwalimuChat({
             const data = JSON.parse(event.data);
             
             if (data.type === 'agent_response' && data.message?.student_id === studentId) {
-              setMessages((prev) => [...prev, {
-                id: data.message.id,
-                sender: 'agent',
-                text: data.message.text,
-                agent: data.message.agent,
-                agents_used: data.message.agents_used || [],
-                timestamp: data.message.timestamp,
-              }]);
+              // Prevent duplicate messages by checking if ID already exists
+              setMessages((prev) => {
+                const exists = prev.some(msg => msg.id === data.message.id);
+                if (exists) return prev;
+                
+                return [...prev, {
+                  id: data.message.id,
+                  sender: 'agent',
+                  text: data.message.text,
+                  agent: data.message.agent,
+                  agents_used: data.message.agents_used || [],
+                  timestamp: data.message.timestamp,
+                }];
+              });
 
               // Auto-speak if enabled
               if (autoSpeak) {
@@ -133,12 +139,18 @@ export function MwalimuChat({
             }
 
             if (data.type === 'teacher_message' && data.message?.student_id === studentId) {
-              setMessages((prev) => [...prev, {
-                id: data.message.id,
-                sender: 'teacher',
-                text: data.message.text,
-                timestamp: data.message.timestamp,
-              }]);
+              // Prevent duplicate messages by checking if ID already exists
+              setMessages((prev) => {
+                const exists = prev.some(msg => msg.id === data.message.id);
+                if (exists) return prev;
+                
+                return [...prev, {
+                  id: data.message.id,
+                  sender: 'teacher',
+                  text: data.message.text,
+                  timestamp: data.message.timestamp,
+                }];
+              });
 
               toast({
                 title: 'Teacher Message',
