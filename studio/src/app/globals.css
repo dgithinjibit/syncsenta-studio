@@ -63,49 +63,49 @@
   }
 
   .dark {
-    /* Dark mode: Maintain vibrancy while being easier on eyes */
-    --background: 180 70% 20%; /* Dark Teal */
-    --foreground: 0 0% 100%; /* White text */
+    /* Dark mode: Deep black background inspired by mp3juice.sc */
+    --background: 0 0% 7%; /* #121212 - Deep Black */
+    --foreground: 0 0% 95%; /* #F2F2F2 - Off White */
     
-    --card: 180 70% 25%; /* Slightly lighter Teal */
-    --card-foreground: 48 100% 88%; /* Light Yellow text */
+    --card: 0 0% 10%; /* #1A1A1A - Dark Gray */
+    --card-foreground: 0 0% 95%; /* Off White text */
     
-    --popover: 180 70% 25%; /* Teal */
-    --popover-foreground: 48 100% 88%; /* Light Yellow text */
+    --popover: 0 0% 10%; /* Dark Gray */
+    --popover-foreground: 0 0% 95%; /* Off White text */
     
-    --primary: 30 100% 50%; /* Bright Orange */
+    --primary: 142 76% 36%; /* #16A34A - Vibrant Green (like mp3juice) */
     --primary-foreground: 0 0% 100%; /* White text */
     
-    --secondary: 120 70% 45%; /* Vibrant Green */
-    --secondary-foreground: 0 0% 100%; /* White text */
+    --secondary: 0 0% 15%; /* #262626 - Slightly lighter gray */
+    --secondary-foreground: 0 0% 95%; /* Off White text */
     
-    --muted: 180 70% 30%; /* Medium Teal */
-    --muted-foreground: 48 100% 80%; /* Light Yellow text */
+    --muted: 0 0% 15%; /* #262626 - Muted gray */
+    --muted-foreground: 0 0% 65%; /* #A6A6A6 - Muted text */
     
-    --accent: 330 100% 55%; /* Hot Pink */
+    --accent: 142 76% 36%; /* Vibrant Green accent */
     --accent-foreground: 0 0% 100%; /* White text */
     
-    --destructive: 0 84% 60%; /* Warm Red */
+    --destructive: 0 84% 60%; /* #FF6B6B - Warm Red */
     --destructive-foreground: 0 0% 100%; /* White text */
     
-    --border: 180 70% 35%; /* Medium Teal */
-    --input: 180 70% 30%; /* Teal */
-    --ring: 30 100% 50%; /* Orange ring */
+    --border: 0 0% 20%; /* #333333 - Dark border */
+    --input: 0 0% 15%; /* #262626 - Dark input */
+    --ring: 142 76% 36%; /* Green ring for focus */
     
-    --chart-1: 30 100% 50%; /* Orange */
-    --chart-2: 120 70% 45%; /* Green */
+    --chart-1: 142 76% 36%; /* Vibrant Green */
+    --chart-2: 217 91% 60%; /* Bright Blue */
     --chart-3: 330 100% 55%; /* Hot Pink */
     --chart-4: 48 100% 50%; /* Golden Yellow */
-    --chart-5: 200 100% 50%; /* Bright Blue */
+    --chart-5: 30 100% 50%; /* Orange */
     
-    --sidebar-background: 180 70% 15%; /* Very Dark Teal */
-    --sidebar-foreground: 0 0% 100%; /* White text */
-    --sidebar-primary: 30 100% 50%; /* Orange */
+    --sidebar-background: 0 0% 5%; /* #0D0D0D - Almost Black */
+    --sidebar-foreground: 0 0% 95%; /* Off White text */
+    --sidebar-primary: 142 76% 36%; /* Vibrant Green */
     --sidebar-primary-foreground: 0 0% 100%; /* White text */
-    --sidebar-accent: 120 70% 45%; /* Green */
-    --sidebar-accent-foreground: 0 0% 100%; /* White text */
-    --sidebar-border: 180 70% 25%; /* Medium Teal */
-    --sidebar-ring: 30 100% 50%; /* Orange ring */
+    --sidebar-accent: 0 0% 15%; /* Dark Gray */
+    --sidebar-accent-foreground: 0 0% 95%; /* Off White text */
+    --sidebar-border: 0 0% 20%; /* Dark border */
+    --sidebar-ring: 142 76% 36%; /* Green ring */
   }
 }
 
