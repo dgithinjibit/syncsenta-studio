@@ -26,7 +26,27 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head />
+      <head>
+        {/* Suppress MetaMask errors - we don't use Web3 in MVP */}
+        <Script id="suppress-metamask-errors" strategy="beforeInteractive">
+          {`
+            // Suppress MetaMask connection errors
+            if (typeof window !== 'undefined') {
+              const originalError = console.error;
+              console.error = function(...args) {
+                const errorMessage = args.join(' ');
+                // Suppress MetaMask and Web3 related errors
+                if (errorMessage.includes('MetaMask') || 
+                    errorMessage.includes('ethereum') ||
+                    errorMessage.includes('chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn')) {
+                  return;
+                }
+                originalError.apply(console, args);
+              };
+            }
+          `}
+        </Script>
+      </head>
       <body className={cn("font-body antialiased", fontSans.variable)}>
         <ClientProviders>
           {children}
