@@ -29,7 +29,17 @@
       "Read(//proc/**)",
       "Bash(bunx tsc *)",
       "Bash(bunx vitest *)",
-      "Bash(npx vitest *)"
+      "Bash(npx vitest *)",
+      "Bash(git rebase *)",
+      "Bash(git stash *)",
+      "Bash(git pull *)",
+      "Bash(git push *)",
+      "Bash(git cherry-pick *)",
+      "WebFetch(domain:4.dbt.io)",
+      "WebFetch(domain:platform.youversion.com)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(find src *)"
     ]
   }
 }
