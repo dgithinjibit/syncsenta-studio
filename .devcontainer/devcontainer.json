@@ -14,7 +14,7 @@
     }
   },
 
-  "forwardPorts": [5173, 8080, 8001],
+  "forwardPorts": [5173, 8080, 8001, 11434],
   
   "portsAttributes": {
     "5173": {
@@ -28,10 +28,14 @@
     "8001": {
       "label": "AI Agents (Python)",
       "onAutoForward": "silent"
+    },
+    "11434": {
+      "label": "Ollama API",
+      "onAutoForward": "silent"
     }
   },
 
-  "postCreateCommand": "echo 'SyncSenta development environment ready!'",
+  "postCreateCommand": "bash .devcontainer/setup.sh",
 
   "customizations": {
     "vscode": {
