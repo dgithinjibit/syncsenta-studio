@@ -227,7 +227,7 @@ Target: demonstrate that SyncSenta is a working, safe, curriculum-aligned platfo
 
 Target: make Omega Claw and future agents consistent, explainable, and easier to maintain.
 
-The selected practices come from the reusable engineering and productivity skills in [`mattpocock/skills`](https://github.com/dgithinjibit/skills), especially `grill-with-docs`, `domain-modeling`, `to-spec`, `to-tickets`, `implement`, `tdd`, `diagnosing-bugs`, `code-review`, `research`, `writing-for-agents`, and `handoff`.
+The selected practices come from the reusable engineering and productivity skills in [`dgithinjibit/skills`](https://github.com/dgithinjibit/skills), especially `grill-with-docs`, `domain-modeling`, `to-spec`, `to-tickets`, `implement`, `tdd`, `diagnosing-bugs`, `code-review`, `research`, `writing-for-agents`, and `handoff`.
 
 ### Context and alignment
 
