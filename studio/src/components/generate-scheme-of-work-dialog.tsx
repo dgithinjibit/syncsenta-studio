@@ -28,7 +28,7 @@ import { collection, addDoc } from 'firebase/firestore';
 import { getAuth } from "firebase/auth";
 
 const grades = [
-    "Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5", "Grade 6"
+    "Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5", "Grade 6", "Grade 7", "Grade 8", "Grade 9", "Grade 10", "Grade 11", "Grade 12"
 ];
 
 interface GenerateSchemeOfWorkDialogProps {
@@ -223,7 +223,7 @@ export default function GenerateSchemeOfWorkDialog({ open, onOpenChange, onResou
         <DialogHeader>
           <DialogTitle className="font-headline text-2xl flex items-center gap-2">
             <Calendar className="text-primary" />
-            Schemer: CBC Scheme of Work (Grade 1-6)
+            Schemer: CBC Scheme of Work (Grade 1-12)
           </DialogTitle>
           <DialogDescription>
              Create a detailed, table-formatted Scheme of Work aligned with official curriculum guidelines.

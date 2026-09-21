@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { CBCCurriculumAgent } from '../cbc-curriculum-agent';
+import { getOmegaClawTeacherCurriculumContext } from '@/curriculum/omega-claw-ai-blockchain';
 
 describe('CBC Curriculum Agent', () => {
   let agent: CBCCurriculumAgent;
@@ -72,6 +73,59 @@ describe('CBC Curriculum Agent', () => {
 
       expect(response.content).toMatch(/sehemu|fungu|mgawanyiko/);
       expect(response.language).toBe('kiswahili');
+    });
+  });
+
+  describe('Omega Claw grade boundaries', () => {
+    it('should allow deeper AI and blockchain requests for Senior School', async () => {
+      const response = await agent.query('Teach blockchain smart contract concepts and model evaluation', {
+        grade: 'g10',
+        subject: 'Science',
+      });
+
+      expect(response.isAccurate).toBe(true);
+      expect(response.source).toContain('Senior School');
+      expect(response.curriculumAlignment).toContain('Senior School');
+    });
+
+    it('should keep Grade 6 AI and blockchain requests introductory', async () => {
+      const response = await agent.query('Explain AI and blockchain with a classroom activity', {
+        grade: 'g6',
+        subject: 'Science',
+      });
+
+      expect(response.isAccurate).toBe(true);
+      expect(response.source).toContain('Grade 6');
+
+      const advanced = await agent.query('Teach Grade 6 students to code a blockchain smart contract', {
+        grade: 'g6',
+        subject: 'Science',
+      });
+
+      expect(advanced.isAccurate).toBe(false);
+      expect(advanced.curriculumAlignment).toBe('Introductory scope exceeded');
+    });
+
+    it('should reject AI and blockchain Omega Claw content below Grade 6', async () => {
+      const response = await agent.query('Explain artificial intelligence and blockchain', {
+        grade: 'g5',
+        subject: 'Science',
+      });
+
+      expect(response.isAccurate).toBe(false);
+      expect(response.curriculumAlignment).toBe('Out of scope');
+      expect(response.error).toContain('Grade 6');
+    });
+
+    it('should provide the correct teacher-generation context by stage', () => {
+      const seniorContext = getOmegaClawTeacherCurriculumContext('Grade 11', 'Computer Science', 'Machine learning evaluation');
+      const gradeSixContext = getOmegaClawTeacherCurriculumContext('Grade 6', 'Science', 'What is blockchain?');
+      const lowerGradeContext = getOmegaClawTeacherCurriculumContext('Grade 5', 'Science', 'What is artificial intelligence?');
+
+      expect(seniorContext).toContain('OMEGA CLAW SENIOR SCHOOL CURRICULUM CONTEXT');
+      expect(seniorContext).toContain('Grade 11');
+      expect(gradeSixContext).toContain('OMEGA CLAW GRADE 6 CURRICULUM CONTEXT');
+      expect(lowerGradeContext).toBeUndefined();
     });
   });
 });

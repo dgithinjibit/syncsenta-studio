@@ -3,12 +3,24 @@
  * and stores it in a reusable format for Mwalimu AI
  */
 
-import type { StrandInfo } from '../../../repos/scheme-scribe-ai/src/data/curriculum/types';
+import { getHardcodedStrands } from '@/data/curriculum';
+
+interface ExtractedSubStrand {
+  name: string;
+  learningOutcomes: string[];
+  suggestedExperiences: string[];
+  keyInquiryQuestion?: string;
+}
+
+interface ExtractedStrand {
+  name: string;
+  subStrands: ExtractedSubStrand[];
+}
 
 export interface CurriculumData {
   grade: string;
   subject: string;
-  strands: StrandInfo[];
+  strands: ExtractedStrand[];
 }
 
 export interface StrandMatch {
@@ -21,89 +33,32 @@ export interface StrandMatch {
 }
 
 /**
- * Extract curriculum data from scheme-scribe-ai repo
+ * Extract curriculum data from the local SyncSenta curriculum layer.
+ * This avoids a runtime/build dependency on a separate repository checkout.
  */
 export async function extractCurriculumData(): Promise<CurriculumData[]> {
   const curriculumData: CurriculumData[] = [];
-  
-  // Import all curriculum files
-  const lowerPrimary = {
-    mathematics: await import('../../../repos/scheme-scribe-ai/src/data/curriculum/lower-primary/mathematics'),
-    kiswahili: await import('../../../repos/scheme-scribe-ai/src/data/curriculum/lower-primary/kiswahili'),
-    english: await import('../../../repos/scheme-scribe-ai/src/data/curriculum/lower-primary/english-activities'),
-    environmental: await import('../../../repos/scheme-scribe-ai/src/data/curriculum/lower-primary/environmental-activities'),
-    creative: await import('../../../repos/scheme-scribe-ai/src/data/curriculum/lower-primary/creative-activities'),
-  };
-  
-  // Extract Grade 1-3 Mathematics
-  if (lowerPrimary.mathematics.grade1Mathematics) {
-    curriculumData.push({
-      grade: 'Grade 1',
-      subject: 'Mathematics Activities',
-      strands: lowerPrimary.mathematics.grade1Mathematics,
-    });
+  const subjects = [
+    ['Mathematics Activities', 'Mathematics'],
+    ['English Language Activities', 'English'],
+    ['Mathematics', 'Mathematics'],
+    ['English', 'English'],
+  ] as const;
+
+  for (const grade of ['Grade1', 'Grade2', 'Grade3', 'Grade4', 'Grade5', 'Grade6'] as const) {
+    for (const [subject, localSubject] of subjects) {
+      const strands = getHardcodedStrands(grade, localSubject).map((strand) => ({
+        name: strand.name,
+        subStrands: strand.subStrands.map((subStrand) => ({
+          name: subStrand.name,
+          learningOutcomes: subStrand.learningOutcomes ?? [],
+          suggestedExperiences: [],
+        })),
+      }));
+      if (strands.length > 0) curriculumData.push({ grade, subject, strands });
+    }
   }
-  if (lowerPrimary.mathematics.grade2Mathematics) {
-    curriculumData.push({
-      grade: 'Grade 2',
-      subject: 'Mathematics Activities',
-      strands: lowerPrimary.mathematics.grade2Mathematics,
-    });
-  }
-  if (lowerPrimary.mathematics.grade3Mathematics) {
-    curriculumData.push({
-      grade: 'Grade 3',
-      subject: 'Mathematics Activities',
-      strands: lowerPrimary.mathematics.grade3Mathematics,
-    });
-  }
-  
-  // Extract Grade 1-3 Kiswahili
-  if (lowerPrimary.kiswahili.grade1Kiswahili) {
-    curriculumData.push({
-      grade: 'Grade 1',
-      subject: 'Kiswahili Language Activities',
-      strands: lowerPrimary.kiswahili.grade1Kiswahili,
-    });
-  }
-  if (lowerPrimary.kiswahili.grade2Kiswahili) {
-    curriculumData.push({
-      grade: 'Grade 2',
-      subject: 'Kiswahili Language Activities',
-      strands: lowerPrimary.kiswahili.grade2Kiswahili,
-    });
-  }
-  if (lowerPrimary.kiswahili.grade3Kiswahili) {
-    curriculumData.push({
-      grade: 'Grade 3',
-      subject: 'Kiswahili Language Activities',
-      strands: lowerPrimary.kiswahili.grade3Kiswahili,
-    });
-  }
-  
-  // Extract Grade 1-3 English
-  if (lowerPrimary.english.grade1English) {
-    curriculumData.push({
-      grade: 'Grade 1',
-      subject: 'English Language Activities',
-      strands: lowerPrimary.english.grade1English,
-    });
-  }
-  if (lowerPrimary.english.grade2English) {
-    curriculumData.push({
-      grade: 'Grade 2',
-      subject: 'English Language Activities',
-      strands: lowerPrimary.english.grade2English,
-    });
-  }
-  if (lowerPrimary.english.grade3English) {
-    curriculumData.push({
-      grade: 'Grade 3',
-      subject: 'English Language Activities',
-      strands: lowerPrimary.english.grade3English,
-    });
-  }
-  
+
   return curriculumData;
 }
 

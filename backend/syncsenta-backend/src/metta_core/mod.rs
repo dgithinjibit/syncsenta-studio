@@ -18,9 +18,11 @@ pub mod interpreter;
 pub mod knowledge_base;
 pub mod orchestration;
 pub mod reasoning;
+pub mod omega_claw;
 
 pub use interpreter::{AtomString, MettaInterpreter, MettaSpace, SpaceId};
 pub use knowledge_base::{AtomDomain, IpfsBackend, KnowledgeBase, NullIpfs, PersistedAtom};
+pub use omega_claw::OmegaClawRules;
 pub use orchestration::{
     OrchestrationOutcome, OrchestrationRequest, OrchestrationResponse, SystemOrchestrator,
 };
@@ -39,6 +41,7 @@ pub struct MettaCore {
     pub knowledge_base: KnowledgeBase,
     pub reasoning_engine: Arc<ReasoningEngine>,
     pub orchestrator: SystemOrchestrator,
+    pub omega_claw: OmegaClawRules,
 }
 
 impl MettaCore {
@@ -47,12 +50,14 @@ impl MettaCore {
         let knowledge_base = KnowledgeBase::with_interpreter(interpreter.clone());
         let reasoning_engine = Arc::new(ReasoningEngine::with_interpreter(interpreter.clone()));
         let orchestrator = SystemOrchestrator::with_reasoning(reasoning_engine.clone());
+        let omega_claw = OmegaClawRules::with_space(interpreter.global_space().clone());
 
         Ok(Self {
             interpreter,
             knowledge_base,
             reasoning_engine,
             orchestrator,
+            omega_claw,
         })
     }
 
@@ -60,6 +65,7 @@ impl MettaCore {
     pub async fn initialize(&mut self) -> Result<()> {
         self.knowledge_base.load_curriculum().await?;
         self.reasoning_engine.load_rules().await?;
+        self.omega_claw.load().await?;
         Ok(())
     }
 }
@@ -97,5 +103,23 @@ mod tests {
         // The seed schema asserts `(role teacher)`, so the orchestrator
         // should not fall through to a flat Deny.
         assert!(!matches!(resp.outcome, OrchestrationOutcome::Deny));
+    }
+
+    #[tokio::test]
+    async fn omega_claw_rules_load_into_shared_core() {
+        let mut core = MettaCore::new().unwrap();
+        core.initialize().await.unwrap();
+
+        assert_eq!(core.omega_claw.scope_for("Grade 6").await.unwrap(), "introductory");
+        assert!(core
+            .omega_claw
+            .is_activity_allowed("Grade 11", "blockchain-consensus")
+            .await
+            .unwrap());
+        assert!(!core
+            .omega_claw
+            .is_activity_allowed("Grade 5", "ai-input-output")
+            .await
+            .unwrap());
     }
 }

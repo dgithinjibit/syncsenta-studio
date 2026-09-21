@@ -144,7 +144,7 @@ function SignupFormComponent() {
                             </div>
                             <div className="flex items-center space-x-2">
                                 <Checkbox id="terms" onCheckedChange={(checked) => setTermsAccepted(checked as boolean)} checked={termsAccepted} />
-                                <Label htmlFor="terms" className="text-xs text-muted-foreground">Agree to <Link href="/terms" className="underline">Terms</Link></Label>
+                                <Label htmlFor="terms" className="text-xs text-muted-foreground">Agree to <Link href="/terms" className="underline">Terms</Link> and review the <Link href="/privacy" className="underline">Privacy Policy</Link>{role === 'student' && <> and <Link href="/parental-consent" className="underline">parental consent flow</Link></>}</Label>
                             </div>
                             <Button type="submit" className="w-full" disabled={isPending || googleLoading || !termsAccepted}>
                                 {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}

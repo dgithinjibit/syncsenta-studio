@@ -15,6 +15,8 @@ import {
     GenerateFamilyEmailOutputSchema
 } from './generate-family-email-types';
 
+export type { GenerateFamilyEmailInput } from './generate-family-email-types';
+
 
 export async function generateFamilyEmail(
   input: GenerateFamilyEmailInput

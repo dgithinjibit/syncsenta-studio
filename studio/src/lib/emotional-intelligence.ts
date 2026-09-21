@@ -81,7 +81,7 @@ export function analyzeEmotionalState(
   
   // Check for excitement
   const hasExcitement = excitementKeywords.some(kw => lowerMessage.includes(kw));
-  if (hasExcitement) {
+  if (hasExcitement && !hasConfidence) {
     sentiment = 'excited';
     confidence = 0.9;
     detectedPatterns.push('excitement_keywords');

@@ -15,6 +15,8 @@ import {
     GenerateWorksheetOutputSchema
 } from './generate-worksheet-types';
 
+export type { GenerateWorksheetInput } from './generate-worksheet-types';
+
 
 export async function generateWorksheet(
   input: GenerateWorksheetInput

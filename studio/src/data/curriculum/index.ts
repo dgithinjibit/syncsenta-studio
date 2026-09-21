@@ -1,6 +1,6 @@
 /**
  * CBC Curriculum Data Layer
- * Unified curriculum data module for KICD CBC (PP1-Grade 6)
+ * Unified curriculum data module for KICD CBC (PP1-Senior School)
  */
 
 import type {
@@ -45,6 +45,16 @@ export function getSubjectsForGrade(grade: GradeLevel): SubjectInfo[] {
     ];
   }
   
+  // Senior School (Grade 10-12): Omega Claw subjects are available for teacher planning.
+  if (['Grade10', 'Grade11', 'Grade12'].includes(grade)) {
+    return [
+      { name: 'Artificial Intelligence', category: 'non-language', grades: ['Grade10', 'Grade11', 'Grade12'] },
+      { name: 'Blockchain and Distributed Systems', category: 'non-language', grades: ['Grade10', 'Grade11', 'Grade12'] },
+      { name: 'Computer Science', category: 'non-language', grades: ['Grade10', 'Grade11', 'Grade12'] },
+      { name: 'English', category: 'language', grades: ['Grade10', 'Grade11', 'Grade12'] },
+    ];
+  }
+
   // Junior School (Grade 7-9) - placeholder for future
   return [];
 }
@@ -356,6 +366,7 @@ export function getAllGrades(): GradeLevel[] {
     'PP1', 'PP2',
     'Grade1', 'Grade2', 'Grade3',
     'Grade4', 'Grade5', 'Grade6',
+    'Grade10', 'Grade11', 'Grade12',
   ];
 }
 

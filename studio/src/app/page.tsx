@@ -35,18 +35,39 @@ export default function HomePage() {
                     />
                 </div>
                 
-                <div className="max-w-2xl space-y-4">
-                    <p className="text-xl md:text-2xl text-foreground font-semibold">
-                        SyncSenta is an AI-powered operating system designed to synchronize the Kenyan education ecosystem.
+                <div className="max-w-3xl space-y-5">
+                    <p className="text-sm md:text-base font-semibold uppercase tracking-wide text-primary">
+                        Not another AI tutor. A CBC teaching workspace.
                     </p>
-                    <p className="text-lg text-muted-foreground">
-                        We connect students, teachers, and administrators to streamline workflows and foster critical thinking, all grounded in the official curriculum.
+                    <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground">
+                        Plan, revise, and share better lessons—even with limited internet.
+                    </h1>
+                    <p className="text-lg md:text-xl text-muted-foreground">
+                        Built for Kenyan teachers and schools that need practical AI-assisted lesson planning, revision tools, and teacher review grounded in the Competency-Based Curriculum (CBC).
                     </p>
+                    <div className="grid gap-3 text-left sm:grid-cols-2">
+                        <div className="rounded-lg border bg-card p-4">
+                            <p className="font-semibold text-foreground">For teachers and schools</p>
+                            <p className="mt-1 text-sm text-muted-foreground">Create CBC-aligned schemes, lesson plans, quizzes, and printable revision resources.</p>
+                        </div>
+                        <div className="rounded-lg border bg-card p-4">
+                            <p className="font-semibold text-foreground">For parents</p>
+                            <p className="mt-1 text-sm text-muted-foreground">Built for parents who want daily visibility into their child&apos;s learning.</p>
+                        </div>
+                        <div className="rounded-lg border bg-card p-4">
+                            <p className="font-semibold text-foreground">CBC scope</p>
+                            <p className="mt-1 text-sm text-muted-foreground">Supports the school journey from PP1 through Grade 12, with Grade 6 AI/blockchain introduction and deeper Senior School study.</p>
+                        </div>
+                        <div className="rounded-lg border bg-card p-4">
+                            <p className="font-semibold text-foreground">What makes it different</p>
+                            <p className="mt-1 text-sm text-muted-foreground">Teacher-reviewed workflows, low-bandwidth outputs, and clear curriculum context—not unsupervised answers for children.</p>
+                        </div>
+                    </div>
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
                     <Button onClick={() => router.push('/signup')} size="lg" className="w-full sm:w-auto">
-                        Get Started
+                        Start the teacher workspace
                         <ArrowRight className="ml-2" />
                     </Button>
                     <Button variant="outline" size="lg" asChild>

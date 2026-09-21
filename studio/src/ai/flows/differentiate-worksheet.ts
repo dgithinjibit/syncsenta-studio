@@ -15,6 +15,8 @@ import {
     DifferentiateWorksheetOutputSchema
 } from './differentiate-worksheet-types';
 
+export type { DifferentiateWorksheetInput } from './differentiate-worksheet-types';
+
 
 export async function differentiateWorksheet(
   input: DifferentiateWorksheetInput

@@ -2,6 +2,15 @@
  * CBC Curriculum Agent - Authoritative source for KICD curriculum knowledge
  * Ensures 100% accuracy and curriculum alignment for all educational content
  */
+import {
+  getOmegaClawScopeMessage,
+  isOmegaClawAdvancedRequest,
+  isOmegaClawGrade,
+  isOmegaClawSeniorGrade,
+  isOmegaClawTopic,
+  omegaClawSeniorCurriculum,
+  omegaClawIntroductoryCurriculum,
+} from '@/curriculum/omega-claw-ai-blockchain';
 
 interface CBCContext {
   grade: string;
@@ -52,6 +61,57 @@ export class CBCCurriculumAgent {
    */
   async query(query: string, context: CBCContext): Promise<CBCResponse> {
     try {
+      // Omega Claw is intentionally restricted to a Grade 6 introduction.
+      // Apply this gate before the backend so retrieved content cannot widen
+      // the age range or turn the introduction into an advanced lesson.
+      if (isOmegaClawTopic(query)) {
+        if (!isOmegaClawGrade(context.grade) && !isOmegaClawSeniorGrade(context.grade)) {
+          return {
+            content: '',
+            isAccurate: false,
+            source: 'Omega Claw Curriculum Guardrail',
+            curriculumAlignment: 'Out of scope',
+            confidence: 1,
+            language: context.language || 'english',
+            error: getOmegaClawScopeMessage(context.grade),
+            suggestions: [`Use ${context.grade} CBC content instead of the Grade 6 AI and blockchain introduction.`],
+          };
+        }
+
+        if (isOmegaClawSeniorGrade(context.grade)) {
+          return {
+            content: `${getOmegaClawScopeMessage(context.grade)}\n\nSenior School progression: ${omegaClawSeniorCurriculum.progression.map((stage) => `${stage.grade} — ${stage.theme}`).join('; ')}.`,
+            isAccurate: true,
+            source: 'Omega Claw Senior School Curriculum Guide',
+            curriculumAlignment: 'Senior School applied AI and blockchain curriculum',
+            confidence: 1,
+            language: context.language || 'english',
+          };
+        }
+
+        if (isOmegaClawAdvancedRequest(query)) {
+          return {
+            content: '',
+            isAccurate: false,
+            source: 'Omega Claw Curriculum Guardrail',
+            curriculumAlignment: 'Introductory scope exceeded',
+            confidence: 1,
+            language: context.language || 'english',
+            error: 'Omega Claw Grade 6 is introductory only. Keep the lesson conceptual and use a teacher-approved example instead of coding, deployment, wallets, tokens, trading, investment, or advanced model-building.',
+            suggestions: ['Ask for a simple explanation, classroom activity, safety scenario, or paper-based demonstration.'],
+          };
+        }
+
+        return {
+          content: `${getOmegaClawScopeMessage(context.grade)}\n\nTopics: ${omegaClawIntroductoryCurriculum.strands.map((strand) => strand.title).join('; ')}.`,
+          isAccurate: true,
+          source: 'Omega Claw Grade 6 Curriculum Guide',
+          curriculumAlignment: 'CBC Grade 6 introductory technology concepts',
+          confidence: 1,
+          language: context.language || 'english',
+        };
+      }
+
       // Validate context
       const validation = this.validateContext(context);
       if (!validation.isValid) {
@@ -171,6 +231,37 @@ export class CBCCurriculumAgent {
         isAligned: false,
         confidence: 0,
         reason: contextValidation.error
+      };
+    }
+
+    if (isOmegaClawTopic(content)) {
+      if (!isOmegaClawGrade(context.grade) && !isOmegaClawSeniorGrade(context.grade)) {
+        return {
+          isAligned: false,
+          confidence: 1,
+          reason: getOmegaClawScopeMessage(context.grade),
+          suggestions: ['Use the learner\'s own grade-level CBC content.']
+        };
+      }
+      if (isOmegaClawSeniorGrade(context.grade)) {
+        return {
+          isAligned: true,
+          confidence: 1,
+          reason: 'Content fits the supervised Senior School Omega Claw scope; require evidence, ethics, safety, and teacher review.'
+        };
+      }
+      if (isOmegaClawAdvancedRequest(content)) {
+        return {
+          isAligned: false,
+          confidence: 1,
+          reason: 'Content exceeds the Grade 6 introductory Omega Claw scope.',
+          suggestions: ['Replace advanced or financial content with a conceptual, teacher-guided, offline-friendly activity.']
+        };
+      }
+      return {
+        isAligned: true,
+        confidence: 1,
+        reason: 'Content fits the Grade 6 introductory Omega Claw scope; keep it conceptual and teacher-guided.'
       };
     }
 
@@ -349,7 +440,7 @@ export class CBCCurriculumAgent {
    */
   private validateContext(context: CBCContext): { isValid: boolean; error?: string } {
     // Validate grade
-    const validGrades = ['pp1', 'pp2', 'g1', 'g2', 'g3', 'g4', 'g5', 'g6', 'g7', 'g8', 'g9'];
+    const validGrades = ['pp1', 'pp2', 'g1', 'g2', 'g3', 'g4', 'g5', 'g6', 'g7', 'g8', 'g9', 'g10', 'g11', 'g12'];
     if (!validGrades.includes(context.grade.toLowerCase())) {
       return {
         isValid: false,
@@ -384,7 +475,7 @@ export class CBCCurriculumAgent {
     const queryLower = query.toLowerCase();
     
     // Search through strands and sub-strands
-    for (const [strandName, strand] of Object.entries(curriculumData.strands)) {
+    for (const [strandName, strand] of Object.entries(curriculumData.strands as Record<string, { subStrands: Record<string, unknown> }>)) {
       for (const [subStrandName, subStrand] of Object.entries(strand.subStrands)) {
         if (queryLower.includes(subStrandName.toLowerCase()) || 
             queryLower.includes(strandName.toLowerCase())) {
@@ -484,7 +575,7 @@ export class CBCCurriculumAgent {
     let alignmentScore = 0;
     let totalChecks = 0;
 
-    for (const [strandName, strand] of Object.entries(standards.strands)) {
+    for (const [strandName, strand] of Object.entries(standards.strands as Record<string, { subStrands: Record<string, unknown> }>)) {
       for (const [subStrandName, subStrand] of Object.entries(strand.subStrands)) {
         totalChecks++;
         if (contentLower.includes(subStrandName.toLowerCase()) || 
@@ -518,7 +609,7 @@ export class CBCCurriculumAgent {
     const suggestions: string[] = [];
     
     // Extract available topics
-    for (const [strandName, strand] of Object.entries(curriculumData.strands)) {
+    for (const [strandName, strand] of Object.entries(curriculumData.strands as Record<string, { subStrands: Record<string, unknown> }>)) {
       for (const subStrandName of Object.keys(strand.subStrands)) {
         suggestions.push(`Try asking about ${subStrandName} in ${strandName}`);
       }

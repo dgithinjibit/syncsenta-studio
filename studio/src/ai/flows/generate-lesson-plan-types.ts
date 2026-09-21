@@ -24,6 +24,10 @@ export const GenerateLessonPlanInputSchema = z.object({
     .string()
     .optional()
     .describe('The full Markdown content of the relevant Scheme of Work for context.'),
+  omegaClawCurriculumContext: z
+    .string()
+    .optional()
+    .describe('Teacher-approved Grade 6 or Senior School Omega Claw curriculum context when the topic is AI or blockchain.'),
 });
 export type GenerateLessonPlanInput = z.infer<typeof GenerateLessonPlanInputSchema>;
 

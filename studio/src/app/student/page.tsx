@@ -27,6 +27,7 @@ import {
   Target,
 } from 'lucide-react';
 import { StudentHeader } from '@/components/layout/student-header';
+import { InteractiveChallengePath } from '@/components/student/interactive-challenge-path';
 
 interface StudentProfile {
   id: string;
@@ -150,7 +151,7 @@ export default function StudentDashboardPage() {
   };
 
   const getPersonalizedMotivation = () => {
-    if (!profile) return "Ready to learn with Mwalimu AI today?";
+    if (!profile) return "Ready to learn with SyncSenta today?";
     
     const totalSessions = learningProgress.reduce((sum, p) => sum + p.totalSessions, 0);
     const maxStreak = Math.max(...learningProgress.map(p => p.streakDays), 0);
@@ -216,7 +217,7 @@ export default function StudentDashboardPage() {
             <div className="flex items-center gap-2">
               <Badge variant="outline" className="gap-1">
                 <Brain className="h-3 w-3" />
-                Mwalimu Active
+                SyncSenta Active
               </Badge>
               <Badge variant="outline" className="gap-1">
                 <Clock className="h-3 w-3" />
@@ -280,6 +281,10 @@ export default function StudentDashboardPage() {
               </CardContent>
             </Card>
           </div>
+
+          <InteractiveChallengePath
+            grade={profile?.grade || 'Grade 6'}
+          />
 
           <div className="grid gap-6 lg:grid-cols-3">
             <Card className="lg:col-span-2">
@@ -367,7 +372,7 @@ export default function StudentDashboardPage() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Zap className="h-5 w-5" />
-                    Mwalimu AI Tutor
+                    Omega Claw Guided Tutor
                   </CardTitle>
                   <CardDescription>
                     Live Socratic tutor grounded in CBC curriculum

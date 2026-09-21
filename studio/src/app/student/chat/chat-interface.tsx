@@ -103,6 +103,8 @@ import { app } from '@/lib/firebase';
 import { InteractiveQuizModal } from '@/components/quiz/interactive-quiz-modal';
 import { QuizTrigger } from '@/lib/quiz-trigger';
 import type { QuizQuestion, QuizCompletionResult } from '@/types/curriculum';
+import { getSocraticGuidanceStage } from '@/lib/socratic-guidance';
+import { SocraticPromptPanel } from '@/components/tutor-dashboard/socratic-prompt-panel';
 
 type Message = {
     role: 'user' | 'model';
@@ -139,6 +141,10 @@ export default function ChatInterface({ subject, grade, onBack, teacherContext, 
     const [showQuizModal, setShowQuizModal] = useState(false);
     const [quizQuestions, setQuizQuestions] = useState<QuizQuestion[]>([]);
     const [currentTopic, setCurrentTopic] = useState('General');
+    const socraticStage = getSocraticGuidanceStage({
+        currentMessage: input || messages.filter((message) => message.role === 'user').at(-1)?.content || '',
+        history: messages,
+    });
 
      useEffect(() => {
         const name = localStorage.getItem('studentName');
@@ -172,8 +178,13 @@ export default function ChatInterface({ subject, grade, onBack, teacherContext, 
 
     useEffect(() => {
         // Initialize SpeechRecognition only on the client
-        if (typeof window !== 'undefined' && 'SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (typeof window !== 'undefined' && ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)) {
+            const speechWindow = window as typeof window & {
+                SpeechRecognition?: new () => any;
+                webkitSpeechRecognition?: new () => any;
+            };
+            const SpeechRecognition = speechWindow.SpeechRecognition || speechWindow.webkitSpeechRecognition;
+            if (!SpeechRecognition) return;
             recognitionRef.current = new SpeechRecognition();
             recognitionRef.current.continuous = true;
             recognitionRef.current.interimResults = true;
@@ -259,6 +270,11 @@ export default function ChatInterface({ subject, grade, onBack, teacherContext, 
     const handleChoiceClick = (choice: string) => {
         handleSubmit(undefined, choice);
     }
+
+    const handleSocraticPrompt = (prompt: string) => {
+        setChoices([]);
+        setInput(prompt);
+    };
     
     const checkQuizTrigger = async (conversationHistory: Message[], lastMessage: string) => {
         // Skip quiz trigger for Indigenous Language (Gikuyu) - focus on language learning
@@ -392,7 +408,7 @@ export default function ChatInterface({ subject, grade, onBack, teacherContext, 
                     grade,
                     subject,
                     studentName,
-                    studentId,
+                    studentId: studentId ?? undefined,
                     teacherId,
                     currentMessage: currentMessage,
                     history: historyForAI,
@@ -436,6 +452,12 @@ export default function ChatInterface({ subject, grade, onBack, teacherContext, 
                 <CardContent className="flex-1 overflow-hidden p-0">
                     <ScrollArea className="h-full" ref={scrollAreaRef}>
                         <div className="p-6 space-y-4">
+                             <SocraticPromptPanel
+                                stage={socraticStage}
+                                subject={subject}
+                                disabled={loading || choices.length > 0 || chatTokens <= 0}
+                                onPrompt={handleSocraticPrompt}
+                             />
                              {messages.length === 0 && loading && (
                                 <div className="flex justify-start">
                                     <div className="max-w-[75%] p-3 rounded-lg bg-muted flex items-center">

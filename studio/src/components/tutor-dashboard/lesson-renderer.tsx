@@ -105,14 +105,14 @@ export function LessonRenderer({
       </Card>
 
       {/* Current Node Content */}
-      {state.matches('active.teaching') && (
+      {state.matches({ active: 'teaching' }) && (
         <TeachingNodeRenderer
           node={currentNode as TeachingNode}
           onNext={() => send({ type: 'NEXT' })}
         />
       )}
 
-      {state.matches('active.microEval') && (
+      {state.matches({ active: 'microEval' }) && (
         <MicroEvalNodeRenderer
           node={currentNode as MicroEvalNode}
           onCorrect={(data) => send({ type: 'ANSWER_CORRECT', data })}
@@ -122,7 +122,7 @@ export function LessonRenderer({
         />
       )}
 
-      {state.matches('active.scaffolding') && (
+      {state.matches({ active: 'scaffolding' }) && (
         <ScaffoldingNodeRenderer
           node={currentNode as ScaffoldingNode}
           lessonScript={lessonScript}
@@ -130,7 +130,7 @@ export function LessonRenderer({
         />
       )}
 
-      {state.matches('active.summary') && (
+      {state.matches({ active: 'summary' }) && (
         <SummaryNodeRenderer
           node={currentNode as SummaryNode}
           onComplete={() => send({ type: 'COMPLETE' })}

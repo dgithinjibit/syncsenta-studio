@@ -8,31 +8,30 @@
  */
 
 import {ai} from '@/ai/genkit';
-import {z} from 'zod';
 import {
     GenerateLessonPlanInput,
     GenerateLessonPlanInputSchema,
     GenerateLessonPlanOutput,
     GenerateLessonPlanOutputSchema
 } from './generate-lesson-plan-types';
+import { getOmegaClawTeacherCurriculumContext } from '@/curriculum/omega-claw-ai-blockchain';
+
+export type { GenerateLessonPlanInput } from './generate-lesson-plan-types';
 
 export async function generateLessonPlan(
   input: GenerateLessonPlanInput,
   onUpdate: (chunk: string) => void
 ): Promise<void> {
-    const { stream } = await ai.generate({
-      prompt: prompt.prompt,
-      model: ai.getModel(),
-      input: input,
-      stream: true,
-      output: {
-        format: 'text',
-      }
-    });
+    const curriculumContext = input.omegaClawCurriculumContext || getOmegaClawTeacherCurriculumContext(input.gradeLevel, input.subject, input.topic);
+    const generationInput = curriculumContext
+      ? { ...input, omegaClawCurriculumContext: curriculumContext }
+      : input;
 
-    for await (const chunk of stream) {
-      onUpdate(chunk.output?.text || '');
+    const generation = prompt.stream(generationInput);
+    for await (const chunk of generation.stream) {
+      if (chunk.text) onUpdate(chunk.text);
     }
+    await generation.response;
 }
 
 const prompt = ai.definePrompt({
@@ -46,6 +45,14 @@ const prompt = ai.definePrompt({
     **CONTEXT: SCHEME OF WORK**
     You MUST use the following Scheme of Work as the primary source of truth to create the lesson plan document.
     {{{schemeOfWorkContext}}}
+    ---
+    {{/if}}
+
+    {{#if omegaClawCurriculumContext}}
+    ---
+    **CONTEXT: OMEGA CLAW CURRICULUM**
+    Use this as a mandatory scope and safety guide. Preserve the learner-stage depth, learning outcomes, practical boundaries, and human-review requirements. Do not introduce advanced Senior School content to Grade 6, and do not generate content for grades below Grade 6.
+    {{{omegaClawCurriculumContext}}}
     ---
     {{/if}}
 

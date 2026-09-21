@@ -28,6 +28,7 @@ import {
   enhancePromptWithEmotionalIntelligence,
   type EmotionalState,
 } from './emotional-intelligence';
+import { buildSocraticGuidancePrompt } from './socratic-guidance';
 
 export interface MwalimuTurnInput {
   userId: string;
@@ -102,7 +103,11 @@ export async function runMwalimuTurn(input: MwalimuTurnInput): Promise<MwalimuTu
     input.subject
   );
   
-  const systemPrompt = composeSystemPrompt(personalizedPrompt, cbcContext, schemeContext, pedagogy);
+  const socraticGuidance = buildSocraticGuidancePrompt({
+    currentMessage: input.currentMessage,
+    history: input.history,
+  });
+  const systemPrompt = composeSystemPrompt(personalizedPrompt, cbcContext, schemeContext, pedagogy, socraticGuidance);
 
   // 5. Generate via the multi-provider client (Groq → AISA → fallback).
   const messages = [
@@ -193,7 +198,11 @@ export async function* runMwalimuTurnStream(
     input.subject
   );
   
-  const systemPrompt = composeSystemPrompt(personalizedPrompt, cbcContext, schemeContext, pedagogy);
+  const socraticGuidance = buildSocraticGuidancePrompt({
+    currentMessage: input.currentMessage,
+    history: input.history,
+  });
+  const systemPrompt = composeSystemPrompt(personalizedPrompt, cbcContext, schemeContext, pedagogy, socraticGuidance);
 
   const messages = [
     { role: 'system' as const, content: systemPrompt },
@@ -270,8 +279,9 @@ function composeSystemPrompt(
   cbcContext: string,
   schemeContext: string,
   pedagogy: MettaPedagogy | null,
+  socraticGuidance: string,
 ): string {
-  const parts: string[] = [base];
+  const parts: string[] = [base, socraticGuidance];
   if (schemeContext) parts.push(schemeContext); // Scheme context first (most specific)
   if (cbcContext) parts.push(cbcContext); // CBC context second (general curriculum)
   if (pedagogy) parts.push(formatPedagogyConstraint(pedagogy));

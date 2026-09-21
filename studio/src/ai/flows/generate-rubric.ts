@@ -15,6 +15,8 @@ import {
     GenerateRubricOutputSchema
 } from './generate-rubric-types';
 
+export type { GenerateRubricInput } from './generate-rubric-types';
+
 
 export async function generateRubric(
   input: GenerateRubricInput

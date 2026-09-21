@@ -13,6 +13,9 @@ import {
     GenerateSchemeOfWorkOutput,
     GenerateSchemeOfWorkOutputSchema
 } from './generate-scheme-of-work-types';
+import { getOmegaClawTeacherCurriculumContext } from '@/curriculum/omega-claw-ai-blockchain';
+
+export type { GenerateSchemeOfWorkInput } from './generate-scheme-of-work-types';
 
 
 export async function generateSchemeOfWork(
@@ -29,11 +32,21 @@ const generateSchemeOfWorkFlow = ai.defineFlow(
     outputSchema: GenerateSchemeOfWorkOutputSchema,
   },
   async (input) => {
+    const curriculumContext = input.omegaClawCurriculumContext || getOmegaClawTeacherCurriculumContext(input.grade, input.subject, `${input.strand} ${input.subStrand}`);
+    const generationInput = curriculumContext
+      ? { ...input, omegaClawCurriculumContext: curriculumContext }
+      : input;
     
     // Determine which prompt to use based on the subject
     const isKiswahili = input.subject.toLowerCase().includes('kiswahili');
 
     const kiswahiliPrompt = `You are an expert curriculum developer in Kenya, creating a CBE-compliant Scheme of Work.
+
+{{#if omegaClawCurriculumContext}}
+**MUKTADHA WA MTAALA WA OMEGA CLAW:**
+Tumia huu kama mwongozo wa lazima wa kiwango na usalama. Hifadhi kina cha darasa, matokeo ya kujifunza, mipaka ya vitendo, na mahitaji ya ukaguzi wa mwalimu. Usilete maudhui ya kina ya Senior School kwa Grade 6, wala maudhui ya AI/blockchain kwa madarasa yaliyo chini ya Grade 6.
+{{{omegaClawCurriculumContext}}}
+{{/if}}
 
 Your task is to generate a scheme of work for a specific sub-strand, based on the provided curriculum data. The entire output must be a single, well-formatted Markdown table.
 
@@ -55,6 +68,12 @@ The final output MUST be a single, well-formatted Markdown table with the follow
 `;
 
     const englishPrompt = `You are an expert Kenyan CBE curriculum developer. Your task is to generate a comprehensive, single-row Scheme of Work in a Markdown table format.
+
+{{#if omegaClawCurriculumContext}}
+**OMEGA CLAW CURRICULUM CONTEXT:**
+Use this as a mandatory scope and safety guide. Preserve the learner-stage depth, outcomes, practical boundaries, and human-review requirements. Do not introduce advanced Senior School content to Grade 6, and do not generate AI/blockchain content for grades below Grade 6.
+{{{omegaClawCurriculumContext}}}
+{{/if}}
 
 **CONTEXT FROM CURRICULUM DOCUMENT (Your ONLY Source of Truth):**
 You MUST use the following curriculum details to populate the table. Do not add any information not present in this context.
@@ -81,7 +100,7 @@ The final output MUST be a single, well-formatted Markdown table with the follow
     });
 
 
-    const {output} = await selectedPrompt(input);
+        const {output} = await selectedPrompt(generationInput);
     return output!;
   }
 );

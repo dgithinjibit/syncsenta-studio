@@ -4,6 +4,7 @@ pub mod auth;         // Authentication (needed for student login)
 pub mod mvp;          // MVP vertical slice: chat + WS + teacher dashboard
 pub mod mwalimu;      // Mwalimu AI chat for students
 pub mod translation;  // Gikuyu translation for multilingual learning
+pub mod omega_claw;   // SyncSenta student activity progression and hints
 
 // COMMENTED OUT: Non-student handlers for later implementation
 // pub mod approvals;    // Admin approval workflows

@@ -1,4 +1,3 @@
-import type { StrandInfo, SubStrandInfo } from "./types";
 import { getHardcodedStrands } from "./index";
 
 /**
@@ -36,7 +35,7 @@ export function getTermAllocation(
       result.push({
         strandName: strand.name,
         subStrandName: subStrand.name,
-        weeks: Array.from({ length: subStrand.lessons }, (_, i) => i + 1),
+        weeks: Array.from({ length: 1 }, (_, i) => i + 1),
       });
     }
   }
